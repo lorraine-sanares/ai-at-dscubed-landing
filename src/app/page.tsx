@@ -6,7 +6,7 @@ import Navbar from "@/components/Navbar";
 export default function Page() {
   return (
     <main className="scroll-smooth">
-      <Navbar />
+      {/* <Navbar /> */}
       
       <section id="hero">
         <Hero />
