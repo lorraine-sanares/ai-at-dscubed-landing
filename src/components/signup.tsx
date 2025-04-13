@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { TypewriterEffect } from "@/components/ui/typewriter-effect";
-// import { supabase } from "@/lib/supabaseClient"; // 👈 import Supabase client
+import { supabase } from "@/lib/supabaseClient"; // 👈 import Supabase client
 
 const Signup: React.FC = () => {
   const [email, setEmail] = useState("");
