@@ -9,6 +9,10 @@ const Doing: React.FC = () => {
     <section className="bg-[#fdfcfb] dark:bg-[#060C14] py-24 px-18">
       <div className="max-w-6xl mx-auto space-y-24">
 
+        <h1 className="text-4xl md:text-5xl font-bold mb-30 text-white">
+            Our Projects
+        </h1>
+
         {/* Block 1 */}
         <div className="grid md:grid-cols-2 gap-16 items-center">
           {/* Text */}

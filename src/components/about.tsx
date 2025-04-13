@@ -1,5 +1,5 @@
 "use client";
-
+import Image from "next/image";
 import React from "react";
 import { GlowingEffect } from "@/components/ui/glowing-effect";
 
@@ -31,18 +31,21 @@ const About: React.FC = () => {
             </div>
 
             {/* Illustration or Placeholder */}
-            <div className="flex justify-center md:justify-end">
-            {/* <div className="w-64 h-64 bg-[#DE735B] flex items-center justify-center rounded-xl"> */}
-                {/* Replace with <Image src="/your-image.svg" ... /> if using Next.js Image */}
-                {/* <div className="text-white text-6xl">🤖</div> */}
-            {/* </div> */}
+            <div className="flex justify-right md:justify-end">
+                <Image
+                    src="/network.png"
+                    alt="network"
+                    width={500}
+                    height={600}
+                    className="rounded-md shadow-xl object-contain"
+                />
             </div>
         </div>
         </section>
 
 
 
-      <h1 className="text-2xl md:text-4xl font-bold mb-15 mt-30 text-white text-center">
+      <h1 className="text-2xl md:text-4xl font-bold mb-15 mt-20 text-white text-center">
         What we offer
       </h1>
 
