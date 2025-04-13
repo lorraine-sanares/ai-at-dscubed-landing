@@ -1,7 +1,7 @@
 
 import Hero from "@/components/Hero";
 import Navbar from "@/components/Navbar";
-
+import About from "@/components/About";
 
 export default function Page() {
   return (
@@ -12,9 +12,11 @@ export default function Page() {
         <Hero />
       </section>
 
-      {/* <section id="about">
-        <about />
+      <section id="about">
+        <About />
       </section>
+      
+      {/* 
 
       <section id="doing">
         <doing />
