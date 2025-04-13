@@ -9,7 +9,9 @@ const Navbar: React.FC = () => {
     const [isOpen, setIsOpen] = useState(false);
 
     return (
-        <nav className="bg-black text-white w-full top-0 left-0 z-50">
+        <nav 
+        style={{ backgroundColor: "#060C14" }}
+        className="text-white w-full top-0 left-0 z-50 sticky border-b border-white/20">
             <div className="container mx-auto flex items-center justify-between px-6 py-4 h-16">
                 
                 {/* Logo */}
@@ -42,10 +44,10 @@ const Navbar: React.FC = () => {
                     </li>
  
                     <li>
-                        <a href="#projects" className="hover:text-blue-400">Projects</a>
+                        <a href="#doing" className="hover:text-blue-400">Projects</a>
                     </li>
                     <li>
-                        <a href="#contact" className="hover:text-blue-400">Contact</a>
+                        <a href="#signup" className="hover:text-blue-400">Join</a>
                     </li>
                 </ul>
             </div>

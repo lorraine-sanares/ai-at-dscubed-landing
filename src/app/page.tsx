@@ -13,7 +13,8 @@ export default function Page() {
       <section id="hero">
         <Hero />
       </section>
-
+      <Navbar />
+      
       <section id="about">
         <About />
       </section>

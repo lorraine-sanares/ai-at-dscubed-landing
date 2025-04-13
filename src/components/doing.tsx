@@ -6,7 +6,7 @@ import { BackgroundGradient } from "@/components/ui/background-gradient"; // adj
 
 const Doing: React.FC = () => {
   return (
-    <section className="bg-[#fdfcfb] dark:bg-[#060C14] py-24 px-18">
+    <section className="bg-[#fdfcfb] dark:bg-[#060C14] py-24 px-18 mt-20 mb-25">
       <div className="max-w-6xl mx-auto space-y-24">
 
         <h1 className="text-4xl md:text-5xl font-bold mb-30 text-white">
@@ -62,9 +62,9 @@ const Doing: React.FC = () => {
                 DSCubed’s dynamic AI assistant, now streamlining tasks between Discord 
                 and Notion, with more cutting-edge features soon to launch.
             </p>
-            <button className="border border-black dark:border-white px-5 py-2 rounded-full font-semibold hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition">
+            {/* <button className="border border-black dark:border-white px-5 py-2 rounded-full font-semibold hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition">
               Join the preview
-            </button>
+            </button> */}
           </div>
         </div>
 

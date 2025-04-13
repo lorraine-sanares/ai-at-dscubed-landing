@@ -35,10 +35,12 @@ const Hero: React.FC = () => {
   return (
 
     // Dimensions of container
-    <section
-      className="relative mx-auto"
-      style={{ width: "1440px", height: "481px", backgroundColor: heroBg }}
-    >
+      <section
+        className="relative w-full h-screen mx-auto"
+        style={{ backgroundColor: heroBg }}
+      >
+
+    
       {/* Rendering small nodes */}
       {nodes.map((node, index) => (
         <div
