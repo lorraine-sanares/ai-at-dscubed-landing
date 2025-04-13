@@ -1,6 +1,8 @@
 
 import Hero from "@/components/Hero";
 import Navbar from "@/components/Navbar";
+import About from "@/components/About"
+import Doing from "@/components/Doing";
 
 
 export default function Page() {
@@ -12,17 +14,17 @@ export default function Page() {
         <Hero />
       </section>
 
-      {/* <section id="about">
-        <about />
+      <section id="about">
+        <About />
       </section>
 
       <section id="doing">
-        <doing />
+        <Doing />
       </section>
-
-      <section id="contact">
+{/* 
+      #<section id="contact">
         <contact />
-      </section> */}
+      </section> */}  
     </main>
   );
 }
