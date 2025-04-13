@@ -1,7 +1,8 @@
 
 import Hero from "@/components/Hero";
 import Navbar from "@/components/Navbar";
-import About from "@/components/About";
+import About from "@/components/About"
+import Doing from "@/components/Doing";
 
 export default function Page() {
   return (
@@ -15,16 +16,14 @@ export default function Page() {
       <section id="about">
         <About />
       </section>
-      
-      {/* 
 
       <section id="doing">
-        <doing />
+        <Doing />
       </section>
-
-      <section id="contact">
+{/* 
+      #<section id="contact">
         <contact />
-      </section> */}
+      </section> */}  
     </main>
   );
 }
