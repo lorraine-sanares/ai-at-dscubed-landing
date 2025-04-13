@@ -21,12 +21,17 @@ const About: React.FC = () => {
                 technologies, unlocking endless possibilities for innovation and discovery.
             </p>
             <div className="flex gap-4">
+              <a href="#signup">
                 <button className="px-5 py-3 rounded-full bg-white text-black hover:opacity-90 transition">
-                Join Our Mission
+                    Join Our Mission
                 </button>
+                </a>
+
+                <a href="#doing">
                 <button className="px-5 py-3 rounded-full border text-white border-white hover:bg-white hover:text-black transition">
-                Explore Projects
+                    Explore Projects
                 </button>
+              </a>
             </div>
             </div>
 

@@ -23,8 +23,8 @@ const Signup: React.FC = () => {
   };
 
   return (
-    <section className="bg-black text-white py-28 px-6 min-h-screen">
-      <div className="max-w-4xl mx-auto text-center mb-20 mt-20">
+    <section className="bg-black text-white min-h-screen px-6 flex items-center justify-center">
+      <div className="max-w-4xl text-center w-full">
         <p className="text-white text-base mb-4">
           Step into the future of intelligence and
         </p>
