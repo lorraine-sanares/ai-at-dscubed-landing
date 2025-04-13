@@ -3,6 +3,7 @@ import Hero from "@/components/Hero";
 import Navbar from "@/components/Navbar";
 import About from "@/components/About"
 import Doing from "@/components/Doing";
+import Signup from "@/components/Signup";
 
 export default function Page() {
   return (
@@ -20,10 +21,11 @@ export default function Page() {
       <section id="doing">
         <Doing />
       </section>
-{/* 
-      #<section id="contact">
-        <contact />
-      </section> */}  
+
+      <section id="signup">
+        <Signup />
+      </section>
+
     </main>
   );
 }
