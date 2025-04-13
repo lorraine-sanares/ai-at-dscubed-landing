@@ -17,7 +17,7 @@ const Navbar: React.FC = () => {
                 <Image
                     src="/iconlogo.png"
                     alt="AI Icon Logo"
-                    width={20}
+                    width={70}
                     height={20}
                 />
                 </Link>

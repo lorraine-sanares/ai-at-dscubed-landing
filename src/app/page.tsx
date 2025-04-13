@@ -4,7 +4,6 @@ import Navbar from "@/components/Navbar";
 import About from "@/components/About"
 import Doing from "@/components/Doing";
 
-
 export default function Page() {
   return (
     <main className="scroll-smooth">
