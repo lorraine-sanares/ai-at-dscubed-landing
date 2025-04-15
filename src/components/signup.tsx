@@ -51,16 +51,16 @@ const Signup: React.FC = () => {
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 max-w-xl mx-auto">
           <input
             type="email"
-            placeholder="Enter your student email"
+            placeholder="jane.doe@student.unimelb.edu.au"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             className="w-full px-5 py-3 rounded-full text-white placeholder-gray-500 outline outline-white bg-black"
           />
           <button
             onClick={handleSubmit}
-            className="px-6 py-3 rounded-full bg-white text-black font-medium hover:bg-gray-200 transition"
+            className="px-6 py-3 text-sm width-{80} rounded-full bg-white text-black font-small hover:bg-gray-200 transition"
           >
-            {status === "loading" ? "Submitting..." : "Signup"}
+            {status === "loading" ? "Submitting..." : "Join Waitlist"}
           </button>
         </div>
 
