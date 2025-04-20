@@ -1,0 +1,22 @@
+.gradient-circle-wrapper {
+    position: absolute;
+    width: 58px;
+    height: 58px;
+    z-index: 0; /* Establishes stacking context */
+  }
+  
+  /* Pseudo-element to simulate the gradient drop shadow */
+  .gradient-circle-wrapper::before {
+    content: "";
+    position: absolute;
+    top: -2px; /* Negative offset for spread of 2px */
+    left: -2px;
+    width: calc(58px + 4px);  /* 58px plus 2px on each side */
+    height: calc(58px + 4px);
+    border-radius: 50%;
+    background: linear-gradient(-35deg, #79B7FF, #7A86D7);
+    filter: blur(4px);
+    z-index: -1; /* Places the pseudo-element behind the wrapper */
+  }
+  
+  
