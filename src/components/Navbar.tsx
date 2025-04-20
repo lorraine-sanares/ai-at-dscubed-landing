@@ -15,7 +15,7 @@ const Navbar: React.FC = () => {
             <div className="container mx-auto flex items-center justify-between px-6 py-4 h-16">
                 
                 {/* Logo */}
-                <Link href="/">
+                <Link href="#hero">
                 <Image
                     src="/iconlogo.png"
                     alt="AI Icon Logo"

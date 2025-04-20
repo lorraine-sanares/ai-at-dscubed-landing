@@ -11,7 +11,7 @@ const HeroUI: React.FC<HeroUIProps> = ({ heroBg }) => (
     className="relative w-full h-screen"
     style={{ backgroundColor: heroBg }}
   >
-    {/* Position the SVG group exactly as in Figma */}
+    {/* SVG position*/}
     <div
       style={{
         position: "absolute",
@@ -30,7 +30,7 @@ const HeroUI: React.FC<HeroUIProps> = ({ heroBg }) => (
       />
     </div>
 
-    {/* Logo and tagline positioned as before */}
+    {/* Logo and tagline */}
     <div
       style={{
         position: "absolute",
