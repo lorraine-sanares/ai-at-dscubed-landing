@@ -7,42 +7,36 @@ import { motion } from "framer-motion";
 const About: React.FC = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
 
-  // SVG Animation styles
+  // Simple animation styles for the hexagons
   const svgAnimationStyles = `
-    @keyframes orbit {
-      0% {
-        transform: rotate(0deg) translateX(15px) rotate(0deg);
-      }
-      100% {
-        transform: rotate(360deg) translateX(15px) rotate(-360deg);
-      }
-    }
-    
-    @keyframes float {
+    @keyframes hexGlow {
       0%, 100% {
-        transform: translateY(0);
+        filter: brightness(1) drop-shadow(0 0 10px rgba(59, 130, 246, 0.5));
       }
       50% {
-        transform: translateY(-8px);
+        filter: brightness(1.2) drop-shadow(0 0 15px rgba(139, 92, 246, 0.7));
       }
     }
     
-    .network-lines path {
-      stroke-dasharray: 200;
-      stroke-dashoffset: 200;
-      animation: dash 5s linear forwards infinite;
+    .simple-hexagons polygon {
+      filter: drop-shadow(0 0 8px rgba(59, 130, 246, 0.4));
+      animation: hexGlow 6s ease-in-out infinite;
     }
     
-    @keyframes dash {
-      0% {
-        stroke-dashoffset: 200;
-      }
-      50% {
-        stroke-dashoffset: 0;
-      }
-      100% {
-        stroke-dashoffset: -200;
-      }
+    .simple-hexagons polygon:nth-child(1) {
+      animation-delay: 0s;
+    }
+    
+    .simple-hexagons polygon:nth-child(2) {
+      animation-delay: 1.5s;
+    }
+    
+    .simple-hexagons polygon:nth-child(3) {
+      animation-delay: 3s;
+    }
+    
+    .simple-hexagons polygon:nth-child(4) {
+      animation-delay: 4.5s;
     }
   `;
 
@@ -50,7 +44,7 @@ const About: React.FC = () => {
     <div className="bg-[#060C14] min-h-screen flex flex-col text-gray-800">
       {/* Add the animation styles */}
       <style dangerouslySetInnerHTML={{ __html: svgAnimationStyles }} />
-      
+
       {/* Header Section */}
       <section className="bg-[#060C14] text-black py-24 md:py-36 relative overflow-hidden min-h-screen flex items-center">
         {/* Background liminal gradients */}
@@ -59,205 +53,163 @@ const About: React.FC = () => {
           <div className="absolute bottom-1/4 left-1/3 w-80 h-80 bg-indigo-600/10 rounded-full filter blur-[100px] opacity-20"></div>
           <div className="absolute top-1/2 left-1/4 w-64 h-64 bg-purple-500/10 rounded-full filter blur-[80px] opacity-30"></div>
         </div>
-        
+
         <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 items-center gap-12 relative">
-            {/* Text Content */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              viewport={{ once: true }}
-              className="relative z-10"
-            >
-              <h1 className="text-4xl md:text-6xl font-bold mb-6 text-white bg-gradient-to-r from-white via-blue-300 to-indigo-400 bg-clip-text text-transparent">
-                Who We Are
-              </h1>
-              <div className="h-1 w-24 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-full mb-8"></div>
-              <p className="text-lg leading-relaxed mb-10 max-w-xl text-zinc-300">
-                We are a visionary branch of DSCubed, specializing in the transformative
-                fields of <span className="text-blue-300">Artificial Intelligence</span> and <span className="text-indigo-300">Generative AI</span>. 
-              </p>
-              <p className="text-lg leading-relaxed mb-10 max-w-xl text-zinc-300">
-                Our mission is to empower University of Melbourne students to harness cutting-edge 
-                AI technologies, unlocking endless possibilities for innovation and discovery.
-              </p>
-              <div className="flex flex-wrap gap-5">
-                <a href="#signup">
-                  <button className="px-7 py-3 rounded-full bg-gradient-to-r from-blue-500 to-indigo-600 text-white hover:shadow-lg hover:shadow-blue-500/20 transition-all font-medium">
-                    Join Our Mission
-                  </button>
-                </a>
+          {/* Text Content */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            viewport={{ once: true }}
+            className="relative z-10"
+          >
+            <h1 className="text-4xl md:text-6xl font-bold mb-6 text-white bg-gradient-to-r from-white via-blue-300 to-indigo-400 bg-clip-text text-transparent">
+              Who We Are
+            </h1>
+            <div className="h-1 w-24 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-full mb-8"></div>
+            <p className="text-lg leading-relaxed mb-10 max-w-xl text-zinc-300">
+              We are a visionary branch of DSCubed, specializing in the transformative
+              fields of <span className="text-blue-300">Artificial Intelligence</span> and <span className="text-indigo-300">Generative AI</span>.
+            </p>
+            <p className="text-lg leading-relaxed mb-10 max-w-xl text-zinc-300">
+              Our mission is to empower University of Melbourne students to harness cutting-edge
+              AI technologies, unlocking endless possibilities for innovation and discovery.
+            </p>
+            <div className="flex flex-wrap gap-5">
+              <a href="#signup">
+                <button className="px-7 py-3 rounded-full bg-gradient-to-r from-blue-500 to-indigo-600 text-white hover:shadow-lg hover:shadow-blue-500/20 transition-all font-medium">
+                  Join Our Mission
+                </button>
+              </a>
 
-                <a href="#doing">
-                  <button className="px-7 py-3 rounded-full bg-transparent backdrop-blur-sm border text-white border-white/20 hover:bg-white/10 hover:border-white/40 transition-all group">
-                    Explore Projects
-                    <svg className="inline-block ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                    </svg>
-                  </button>
-                </a>
-              </div>
-            </motion.div>
+              <a href="#doing">
+                <button className="px-7 py-3 rounded-full bg-transparent backdrop-blur-sm border text-white border-white/20 hover:bg-white/10 hover:border-white/40 transition-all group">
+                  Explore Projects
+                  <svg className="inline-block ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                  </svg>
+                </button>
+              </a>
+            </div>
+          </motion.div>
 
-            {/* Generated SVG Graphic */}
-            <motion.div 
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
-              viewport={{ once: true }}
-              className="flex justify-center md:justify-end relative"
-            >
-              <div className="relative w-full max-w-md">
-                <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 to-purple-500/10 rounded-full blur-3xl opacity-30 animate-pulse"></div>
-                <svg 
-                  viewBox="0 0 500 500" 
-                  className="w-full h-auto relative z-10 drop-shadow-[0_0_15px_rgba(59,130,246,0.5)]"
-                >
-                  {/* Abstract Neural Network SVG */}
-                  <g className="opacity-90">
-                    {/* Background elements */}
-                    <circle cx="250" cy="250" r="200" fill="none" stroke="rgba(59, 130, 246, 0.1)" strokeWidth="1" />
-                    <circle cx="250" cy="250" r="150" fill="none" stroke="rgba(99, 102, 241, 0.15)" strokeWidth="1" />
-                    <circle cx="250" cy="250" r="100" fill="none" stroke="rgba(139, 92, 246, 0.2)" strokeWidth="1" />
-                    
-                    {/* Network Lines */}
-                    <g className="network-lines">
-                      <path d="M150,150 Q250,50 350,150" fill="none" stroke="rgba(59, 130, 246, 0.6)" strokeWidth="1.5" />
-                      <path d="M100,250 Q250,200 400,250" fill="none" stroke="rgba(99, 102, 241, 0.6)" strokeWidth="1.5" />
-                      <path d="M150,350 Q250,450 350,350" fill="none" stroke="rgba(139, 92, 246, 0.6)" strokeWidth="1.5" />
-                      <path d="M250,100 Q300,250 250,400" fill="none" stroke="rgba(59, 130, 246, 0.6)" strokeWidth="1.5" />
-                      <path d="M150,200 Q200,250 150,300" fill="none" stroke="rgba(99, 102, 241, 0.6)" strokeWidth="1.5" />
-                      <path d="M350,200 Q300,250 350,300" fill="none" stroke="rgba(139, 92, 246, 0.6)" strokeWidth="1.5" />
-                    </g>
-                    
-                    {/* Network Nodes */}
-                    <g className="network-nodes">
-                      <circle cx="150" cy="150" r="8" fill="#3b82f6" className="animate-pulse" style={{ animationDuration: "3s" }} />
-                      <circle cx="350" cy="150" r="8" fill="#6366f1" className="animate-pulse" style={{ animationDuration: "4s" }} />
-                      <circle cx="100" cy="250" r="8" fill="#8b5cf6" className="animate-pulse" style={{ animationDuration: "5s" }} />
-                      <circle cx="400" cy="250" r="8" fill="#3b82f6" className="animate-pulse" style={{ animationDuration: "3.5s" }} />
-                      <circle cx="150" cy="350" r="8" fill="#6366f1" className="animate-pulse" style={{ animationDuration: "4.5s" }} />
-                      <circle cx="350" cy="350" r="8" fill="#8b5cf6" className="animate-pulse" style={{ animationDuration: "3.2s" }} />
-                      <circle cx="250" cy="100" r="8" fill="#3b82f6" className="animate-pulse" style={{ animationDuration: "4.2s" }} />
-                      <circle cx="250" cy="400" r="8" fill="#6366f1" className="animate-pulse" style={{ animationDuration: "3.8s" }} />
-                      <circle cx="150" cy="200" r="6" fill="#8b5cf6" className="animate-pulse" style={{ animationDuration: "4.7s" }} />
-                      <circle cx="150" cy="300" r="6" fill="#3b82f6" className="animate-pulse" style={{ animationDuration: "3.3s" }} />
-                      <circle cx="350" cy="200" r="6" fill="#6366f1" className="animate-pulse" style={{ animationDuration: "4.3s" }} />
-                      <circle cx="350" cy="300" r="6" fill="#8b5cf6" className="animate-pulse" style={{ animationDuration: "3.7s" }} />
-                      <circle cx="250" cy="250" r="10" fill="#3b82f6" className="animate-pulse" style={{ animationDuration: "3s" }} />
-                    </g>
-                    
-                    {/* Floating particles with orbit animation */}
-                    <g className="particles">
-                      {/* Orbit particles around main nodes */}
-                      <circle cx="0" cy="0" r="3" fill="rgba(59, 130, 246, 0.8)">
-                        <animateTransform
-                          attributeName="transform"
-                          type="rotate"
-                          from="0 150 150"
-                          to="360 150 150"
-                          dur="5s"
-                          repeatCount="indefinite"
-                        />
-                        <animate
-                          attributeName="cx"
-                          values="135;150;165;150;135"
-                          dur="5s"
-                          repeatCount="indefinite"
-                        />
-                        <animate
-                          attributeName="cy"
-                          values="150;135;150;165;150"
-                          dur="5s"
-                          repeatCount="indefinite"
-                        />
-                      </circle>
-                      
-                      <circle cx="0" cy="0" r="3" fill="rgba(99, 102, 241, 0.8)">
-                        <animateTransform
-                          attributeName="transform"
-                          type="rotate"
-                          from="0 350 150"
-                          to="360 350 150"
-                          dur="7s"
-                          repeatCount="indefinite"
-                        />
-                        <animate
-                          attributeName="cx"
-                          values="335;350;365;350;335"
-                          dur="7s"
-                          repeatCount="indefinite"
-                        />
-                        <animate
-                          attributeName="cy"
-                          values="150;135;150;165;150"
-                          dur="7s"
-                          repeatCount="indefinite"
-                        />
-                      </circle>
-                      
-                      <circle cx="0" cy="0" r="3" fill="rgba(139, 92, 246, 0.8)">
-                        <animateTransform
-                          attributeName="transform"
-                          type="rotate"
-                          from="0 250 250"
-                          to="360 250 250"
-                          dur="8s"
-                          repeatCount="indefinite"
-                        />
-                        <animate
-                          attributeName="cx"
-                          values="235;250;265;250;235"
-                          dur="4s"
-                          repeatCount="indefinite"
-                        />
-                        <animate
-                          attributeName="cy"
-                          values="250;235;250;265;250"
-                          dur="4s"
-                          repeatCount="indefinite"
-                        />
-                      </circle>
-                      
-                      {/* Regular pulse particles */}
-                      <circle cx="200" cy="180" r="3" fill="rgba(59, 130, 246, 0.8)" className="animate-pulse" style={{ animationDuration: "2s" }} />
-                      <circle cx="300" cy="180" r="3" fill="rgba(99, 102, 241, 0.8)" className="animate-pulse" style={{ animationDuration: "2.5s" }} />
-                      <circle cx="180" cy="250" r="3" fill="rgba(139, 92, 246, 0.8)" className="animate-pulse" style={{ animationDuration: "3s" }} />
-                      <circle cx="320" cy="250" r="3" fill="rgba(59, 130, 246, 0.8)" className="animate-pulse" style={{ animationDuration: "3.5s" }} />
-                      <circle cx="200" cy="320" r="3" fill="rgba(99, 102, 241, 0.8)" className="animate-pulse" style={{ animationDuration: "2.2s" }} />
-                      <circle cx="300" cy="320" r="3" fill="rgba(139, 92, 246, 0.8)" className="animate-pulse" style={{ animationDuration: "2.7s" }} />
-                    </g>
-                    
-                    {/* Data flow paths */}
-                    <g className="data-flow">
-                      <circle cx="0" cy="0" r="2" fill="rgba(59, 130, 246, 0.9)">
-                        <animateMotion
-                          path="M150,150 Q250,50 350,150"
-                          dur="3s"
-                          repeatCount="indefinite"
-                        />
-                      </circle>
-                      
-                      <circle cx="0" cy="0" r="2" fill="rgba(99, 102, 241, 0.9)">
-                        <animateMotion
-                          path="M100,250 Q250,200 400,250"
-                          dur="4s"
-                          repeatCount="indefinite"
-                        />
-                      </circle>
-                      
-                      <circle cx="0" cy="0" r="2" fill="rgba(139, 92, 246, 0.9)">
-                        <animateMotion
-                          path="M150,350 Q250,450 350,350"
-                          dur="5s"
-                          repeatCount="indefinite"
-                        />
-                      </circle>
-                    </g>
-                  </g>
-                </svg>
-              </div>
-            </motion.div>
+          {/* Generated SVG Graphic */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+            viewport={{ once: true }}
+            className="flex justify-center md:justify-end relative"
+          >
+            <div className="relative w-full max-w-lg">
+              <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 via-indigo-500/10 to-purple-500/10 rounded-full blur-3xl opacity-30 animate-pulse" style={{ animationDuration: "8s" }}></div>
+              <svg
+                viewBox="0 0 500 500"
+                className="w-full h-auto relative z-10 drop-shadow-[0_0_15px_rgba(59,130,246,0.5)]"
+              >
+                {/* Simple gradients */}
+                <defs>
+                  <linearGradient id="blueGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stopColor="rgba(37, 99, 235, 0.9)" />
+                    <stop offset="100%" stopColor="rgba(59, 130, 246, 0.9)" />
+                  </linearGradient>
+                  <linearGradient id="purpleGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stopColor="rgba(109, 40, 217, 0.9)" />
+                    <stop offset="100%" stopColor="rgba(139, 92, 246, 0.9)" />
+                  </linearGradient>
+                  <linearGradient id="indigo" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stopColor="rgba(67, 56, 202, 0.9)" />
+                    <stop offset="100%" stopColor="rgba(99, 102, 241, 0.9)" />
+                  </linearGradient>
+
+                  {/* Glow filter */}
+                  <filter id="hexGlow" x="-50%" y="-50%" width="120%" height="120%">
+                    <feGaussianBlur stdDeviation="6" result="blur" />
+                    <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                  </filter>
+                </defs>
+
+                {/* Just 4 simple hexagons with nice positioning */}
+                <g className="simple-hexagons">
+                  {/* Large blue hexagon */}
+                  <motion.polygon
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.8, delay: 0.1 }}
+                    viewport={{ once: true }}
+                    points="250,215 310,250 310,320 250,355 190,320 190,250"
+                    fill="url(#blueGradient)"
+                    filter="url(#hexGlow)"
+                  >
+                    <animateTransform
+                      attributeName="transform"
+                      type="translate"
+                      values="0,0; 0,-10; 0,0"
+                      dur="5s"
+                      repeatCount="indefinite"
+                    />
+                  </motion.polygon>
+
+                  {/* Medium purple hexagon - top right */}
+                  <motion.polygon
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.8, delay: 0.4 }}
+                    viewport={{ once: true }}
+                    points="330,70 390,105 390,175 330,210 270,175 270,105"
+                    fill="url(#purpleGradient)"
+                  >
+                    <animateTransform
+                      attributeName="transform"
+                      type="translate"
+                      values="0,0; 0,-8; 0,0"
+                      dur="6s"
+                      repeatCount="indefinite"
+                      begin="1s"
+                    />
+                  </motion.polygon>
+
+                  {/* Medium indigo hexagon - bottom left */}
+                  <motion.polygon
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.8, delay: 0.7 }}
+                    viewport={{ once: true }}
+                    points="140,335 200,370 200,440 140,475 80,440 80,370"
+                    fill="url(#indigo)"
+                  >
+                    <animateTransform
+                      attributeName="transform"
+                      type="translate"
+                      values="0,0; 0,-5; 0,0"
+                      dur="4s"
+                      repeatCount="indefinite"
+                      begin="2s"
+                    />
+                  </motion.polygon>
+
+                  {/* Small purple hexagon - far right */}
+                  <motion.polygon
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.8, delay: 1.0 }}
+                    viewport={{ once: true }}
+                    points="420,285 455,305 455,345 420,365 385,345 385,305"
+                    fill="url(#purpleGradient)"
+                  >
+                    <animateTransform
+                      attributeName="transform"
+                      type="translate"
+                      values="0,0; 0,-7; 0,0"
+                      dur="7s"
+                      repeatCount="indefinite"
+                      begin="0.5s"
+                    />
+                  </motion.polygon>
+                </g>
+              </svg>
+            </div>
+          </motion.div>
         </div>
       </section>
 
@@ -278,7 +230,7 @@ const About: React.FC = () => {
             Join us to access a comprehensive ecosystem of AI resources, community, and practical expertise
           </p>
         </div>
-        
+
         {/* 3D connector effect */}
         <div className="absolute left-1/2 transform -translate-x-1/2 top-40 bottom-0 w-[2px] bg-gradient-to-b from-blue-500/50 via-indigo-500/30 to-transparent hidden md:block"></div>
         <div className="absolute left-1/2 transform -translate-x-1/2 top-40 w-6 h-6 rounded-full bg-blue-500/20 blur-md hidden md:block"></div>
@@ -319,7 +271,7 @@ const About: React.FC = () => {
             description="Boost your learning, assignments, and research with intelligent tools and study strategies."
             delay={0.5}
           />
-          
+
           <GlowingCardAnimated
             emoji="🚀"
             title="AI Industry Connections"
