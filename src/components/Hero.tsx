@@ -316,10 +316,10 @@ const Hero: React.FC<HeroProps> = ({ heroBg = "#060C14" }) => {
               alt="AI Cubed Logo"
               fill
               priority
-              className="animate-glow"
+              className="constant-glow"
               style={{
                 objectFit: "contain",
-                filter: "drop-shadow(0 4px 12px rgba(0, 0, 0, 0.5))",
+                filter: "drop-shadow(0 8px 24px rgba(76, 183, 254, 0.4))",
               }}
             />
           </div>
@@ -375,13 +375,8 @@ const Hero: React.FC<HeroProps> = ({ heroBg = "#060C14" }) => {
         }
       }
       
-      @keyframes glow {
-        0%, 100% { 
-          filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.5)); 
-        }
-        50% { 
-          filter: drop-shadow(0 8px 24px rgba(76, 183, 254, 0.4)); 
-        }
+      .constant-glow {
+        filter: drop-shadow(0 8px 24px rgba(76, 183, 254, 0.4)) !important;
       }
 
       .animate-fadeIn {
@@ -392,10 +387,6 @@ const Hero: React.FC<HeroProps> = ({ heroBg = "#060C14" }) => {
       .animate-slideUp {
         opacity: 0;
         animation: slideUp 1.2s cubic-bezier(0.25, 0.1, 0.25, 1) 0.3s forwards;
-      }
-
-      .animate-glow {
-        animation: glow 6s ease-in-out infinite;
       }
       
       @keyframes float {
