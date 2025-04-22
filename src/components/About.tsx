@@ -28,15 +28,15 @@ const About: React.FC = () => {
     }
     
     .simple-hexagons polygon:nth-child(2) {
-      animation-delay: 1.5s;
+      animation-delay: 0s;
     }
     
     .simple-hexagons polygon:nth-child(3) {
-      animation-delay: 3s;
+      animation-delay: 0s;
     }
     
     .simple-hexagons polygon:nth-child(4) {
-      animation-delay: 4.5s;
+      animation-delay: 0s;
     }
   `;
 
@@ -132,11 +132,7 @@ const About: React.FC = () => {
                 {/* Just 4 simple hexagons with nice positioning */}
                 <g className="simple-hexagons">
                   {/* Large blue hexagon */}
-                  <motion.polygon
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.8, delay: 0.1 }}
-                    viewport={{ once: true }}
+                  <polygon
                     points="250,215 310,250 310,320 250,355 190,320 190,250"
                     fill="url(#blueGradient)"
                     filter="url(#hexGlow)"
@@ -147,15 +143,12 @@ const About: React.FC = () => {
                       values="0,0; 0,-10; 0,0"
                       dur="5s"
                       repeatCount="indefinite"
+                      begin="0s"
                     />
-                  </motion.polygon>
+                  </polygon>
 
                   {/* Medium purple hexagon - top right */}
-                  <motion.polygon
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.8, delay: 0.4 }}
-                    viewport={{ once: true }}
+                  <polygon
                     points="330,70 390,105 390,175 330,210 270,175 270,105"
                     fill="url(#purpleGradient)"
                   >
@@ -165,16 +158,12 @@ const About: React.FC = () => {
                       values="0,0; 0,-8; 0,0"
                       dur="6s"
                       repeatCount="indefinite"
-                      begin="1s"
+                      begin="0s"
                     />
-                  </motion.polygon>
+                  </polygon>
 
                   {/* Medium indigo hexagon - bottom left */}
-                  <motion.polygon
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.8, delay: 0.7 }}
-                    viewport={{ once: true }}
+                  <polygon
                     points="140,335 200,370 200,440 140,475 80,440 80,370"
                     fill="url(#indigo)"
                   >
@@ -184,16 +173,12 @@ const About: React.FC = () => {
                       values="0,0; 0,-5; 0,0"
                       dur="4s"
                       repeatCount="indefinite"
-                      begin="2s"
+                      begin="0s"
                     />
-                  </motion.polygon>
+                  </polygon>
 
                   {/* Small purple hexagon - far right */}
-                  <motion.polygon
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.8, delay: 1.0 }}
-                    viewport={{ once: true }}
+                  <polygon
                     points="420,285 455,305 455,345 420,365 385,345 385,305"
                     fill="url(#purpleGradient)"
                   >
@@ -203,9 +188,9 @@ const About: React.FC = () => {
                       values="0,0; 0,-7; 0,0"
                       dur="7s"
                       repeatCount="indefinite"
-                      begin="0.5s"
+                      begin="0s"
                     />
-                  </motion.polygon>
+                  </polygon>
                 </g>
               </svg>
             </div>
