@@ -5,6 +5,112 @@ import Image from "next/image";
 import { BackgroundGradient } from "@/components/ui/background-gradient";
 import { motion } from "framer-motion";
 
+interface ProjectCardProps {
+  title: string;
+  imageSrc: string;
+  imageAlt: string;
+  colorFrom: string;
+  colorTo: string;
+  features: string[];
+  description: string;
+  ctaText?: string;
+  ctaLink?: string;
+  betaStatus?: boolean;
+}
+
+const ProjectCard: React.FC<ProjectCardProps> = ({ 
+  title, 
+  imageSrc, 
+  imageAlt, 
+  colorFrom, 
+  colorTo, 
+  features, 
+  description, 
+  ctaText, 
+  ctaLink, 
+  betaStatus = false
+}) => {
+  // Determine color classes based on props
+  const gradientClass = 
+    colorFrom === "blue-500" ? "bg-gradient-to-r from-blue-500 to-indigo-600" : 
+    "bg-gradient-to-r from-purple-500 to-pink-600";
+  
+  const textColorClass = 
+    colorFrom === "blue-500" ? "text-blue-500" : "text-purple-500";
+  
+  const borderColorClass = 
+    colorFrom === "blue-500" ? "border-blue-500/40 hover:bg-blue-500/10" : 
+    "border-purple-500/40 hover:bg-purple-500/10";
+
+  return (
+    <div className="rounded-2xl overflow-hidden bg-black/30 border border-white/10 hover:border-white/20 transition-all duration-300 h-full flex flex-col backdrop-blur-sm shadow-lg">
+      {/* Image Section - smaller size with proper ratio */}
+      <div className="w-full relative h-[180px] group overflow-hidden">
+        <BackgroundGradient className="absolute inset-0 p-1 rounded-t-2xl">
+          <div className="h-full w-full overflow-hidden rounded-t-xl flex items-center justify-center bg-black/40">
+            <div className="relative w-[280px] h-[160px] flex items-center justify-center">
+              <Image
+                src={imageSrc}
+                alt={imageAlt}
+                width={240}
+                height={160}
+                className="transition-transform duration-500 group-hover:scale-105"
+                priority
+                style={{ 
+                  objectFit: 'contain',
+                  maxWidth: '100%',
+                  maxHeight: '100%'
+                }}
+              />
+            </div>
+          </div>
+        </BackgroundGradient>
+      </div>
+      
+      {/* Content Section */}
+      <div className="p-6 flex-grow flex flex-col">
+        <div> {/* Top content */}
+          <h3 className="text-2xl font-bold text-white mb-2">{title}</h3>
+          <div className={`h-1 w-16 ${gradientClass} rounded-full mb-4`}></div>
+          <p className="text-zinc-300 mb-4">{description}</p>
+          
+          {/* Features */}
+          <ul className="space-y-2 text-zinc-400">
+            {features.map((feature, index) => (
+              <li key={index} className="flex items-center">
+                <svg className={`h-5 w-5 ${textColorClass} mr-2`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
+                {feature}
+              </li>
+            ))}
+          </ul>
+        </div>
+        
+        {/* CTA Button or Beta Status - Always at bottom */}
+        <div className="mt-auto pt-6">
+          {ctaText && ctaLink && !betaStatus && (
+            <a href={ctaLink} target="_blank" rel="noopener noreferrer" className="inline-block">
+              <button className={`px-5 py-2 bg-transparent border ${borderColorClass} text-white rounded-full transition-all group`}>
+                {ctaText}
+                <svg className="inline-block ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                </svg>
+              </button>
+            </a>
+          )}
+          
+          {betaStatus && (
+            <span className="inline-block px-3 py-1 bg-white/10 rounded-full text-sm text-zinc-300">
+              Currently in Beta
+            </span>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+};
+
 const Doing: React.FC = () => {
   const container = {
     hidden: { opacity: 0 },
@@ -29,129 +135,60 @@ const Doing: React.FC = () => {
       <div className="absolute -left-20 bottom-1/3 w-40 h-40 rounded-full bg-purple-500/5 blur-3xl"></div>
       
       <motion.div 
-        className="max-w-6xl mx-auto space-y-24"
+        className="max-w-6xl mx-auto space-y-16"
         variants={container}
         initial="hidden"
         whileInView="show"
         viewport={{ once: true }}
       >
         <motion.div variants={item}>
-          <h1 className="text-4xl md:text-5xl font-bold mb-16 text-center bg-gradient-to-r from-white via-blue-300 to-white bg-clip-text text-transparent">
+          <h1 className="text-4xl md:text-5xl font-bold mb-12 text-center bg-gradient-to-r from-white via-blue-300 to-white bg-clip-text text-transparent">
             Our Projects
           </h1>
         </motion.div>
 
-        {/* Project 1 */}
+        {/* Gallery Style Projects */}
         <motion.div 
-          className="grid md:grid-cols-2 gap-16 items-center min-h-[80vh] py-12"
+          className="grid md:grid-cols-2 gap-8 px-2 max-w-5xl mx-auto"
           variants={item}
         >
-          {/* Text */}
-          <div>
-            <h2 className="text-2xl md:text-4xl font-bold mb-4 text-white">
-              llmgine
-            </h2>
-            <div className="h-1 w-20 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-full mb-6"></div>
-            <p className="text-zinc-300 mb-6 text-lg">
-              A versatile modular framework designed to build production-ready large language 
-              model (LLM) applications with unmatched customizability.
-            </p>
-            <ul className="space-y-2 text-zinc-400">
-              <li className="flex items-center">
-                <svg className="h-5 w-5 text-blue-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                </svg>
-                Seamless integration with popular LLM providers
-              </li>
-              <li className="flex items-center">
-                <svg className="h-5 w-5 text-blue-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                </svg>
-                Extensible plugin architecture
-              </li>
-              <li className="flex items-center">
-                <svg className="h-5 w-5 text-blue-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                </svg>
-                Enterprise-grade reliability and performance
-              </li>
-            </ul>
-          </div>
+          {/* Project 1: llmgine */}
+          <ProjectCard 
+            title="llmgine"
+            imageSrc="/dummycode.png"
+            imageAlt="llmgine framework example"
+            colorFrom="blue-500"
+            colorTo="indigo-600"
+            features={[
+              "Seamless integration with popular LLM providers",
+              "Extensible plugin architecture",
+              "Enterprise-grade reliability and performance"
+            ]}
+            description="A versatile modular framework designed to build production-ready large language model (LLM) applications with unmatched customizability."
+            ctaText="View on GitHub"
+            ctaLink="https://github.com/aidscubed"
+          />
 
-          {/* Image wrapped in BackgroundGradient */}
-          <BackgroundGradient className="rounded-xl p-6 bg-black/30 backdrop-blur-sm">
-            <Image
-              src="/dummycode.png"
-              alt="llmgine framework example"
-              width={600}
-              height={400}
-              className="rounded-lg shadow-2xl object-contain hover:scale-105 transition-transform duration-500"
-            />
-          </BackgroundGradient>
-        </motion.div>
-
-        {/* Project 2 */}
-        <motion.div 
-          className="grid md:grid-cols-2 gap-16 items-center min-h-[80vh] py-12"
-          variants={item}
-        >
-          {/* Image wrapped in BackgroundGradient */}
-          <BackgroundGradient className="rounded-xl p-6 bg-black/30 backdrop-blur-sm md:order-1 order-2">
-            <Image
-              src="/darcy.png"
-              alt="Darcy AI Assistant"
-              width={600}
-              height={400}
-              className="rounded-lg shadow-2xl object-contain hover:scale-105 transition-transform duration-500"
-            />
-          </BackgroundGradient>
-
-          {/* Text & CTA */}
-          <div className="md:order-2 order-1">
-            <h2 className="text-2xl md:text-4xl font-bold mb-4 text-white">
-              Darcy
-            </h2>
-            <div className="h-1 w-20 bg-gradient-to-r from-purple-500 to-pink-600 rounded-full mb-6"></div>
-            <p className="text-zinc-300 mb-6 text-lg">
-              DSCubed's dynamic AI assistant, now streamlining tasks between Discord 
-              and Notion, with more cutting-edge features soon to launch.
-            </p>
-            <ul className="space-y-2 text-zinc-400">
-              <li className="flex items-center">
-                <svg className="h-5 w-5 text-purple-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                </svg>
-                Intelligent task automation
-              </li>
-              <li className="flex items-center">
-                <svg className="h-5 w-5 text-purple-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                </svg>
-                Cross-platform integration
-              </li>
-              <li className="flex items-center">
-                <svg className="h-5 w-5 text-purple-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                </svg>
-                AI-powered workflow optimization
-              </li>
-            </ul>
-            <div className="mt-8">
-              <a href="#signup">
-                <button className="px-6 py-3 bg-transparent border border-purple-500/40 text-white rounded-full hover:bg-purple-500/10 transition-all group">
-                  Join the preview
-                  <svg className="inline-block ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                  </svg>
-                </button>
-              </a>
-            </div>
-          </div>
+          {/* Project 2: Darcy */}
+          <ProjectCard 
+            title="Darcy"
+            imageSrc="/darcy.png"
+            imageAlt="Darcy AI Assistant"
+            colorFrom="purple-500"
+            colorTo="pink-600"
+            features={[
+              "Intelligent task automation",
+              "Cross-platform integration",
+              "AI-powered workflow optimization"
+            ]}
+            description="DSCubed's dynamic AI assistant, now streamlining tasks between Discord and Notion, with more cutting-edge features soon to launch."
+            betaStatus={true}
+          />
         </motion.div>
 
         {/* Coming Soon */}
         <motion.div 
-          className="text-center mt-24 pt-12 pb-24 border-t border-white/10 min-h-[40vh] flex flex-col justify-center"
+          className="text-center mt-16 pt-12 border-t border-white/10 flex flex-col justify-center"
           variants={item}
         >
           <h3 className="text-2xl md:text-3xl font-bold text-white mb-4">More exciting projects coming soon</h3>
