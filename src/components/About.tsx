@@ -7,13 +7,58 @@ import { motion } from "framer-motion";
 const About: React.FC = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
 
+  // SVG Animation styles
+  const svgAnimationStyles = `
+    @keyframes orbit {
+      0% {
+        transform: rotate(0deg) translateX(15px) rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg) translateX(15px) rotate(-360deg);
+      }
+    }
+    
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-8px);
+      }
+    }
+    
+    .network-lines path {
+      stroke-dasharray: 200;
+      stroke-dashoffset: 200;
+      animation: dash 5s linear forwards infinite;
+    }
+    
+    @keyframes dash {
+      0% {
+        stroke-dashoffset: 200;
+      }
+      50% {
+        stroke-dashoffset: 0;
+      }
+      100% {
+        stroke-dashoffset: -200;
+      }
+    }
+  `;
+
   return (
-    <div className="bg-[#060C14] min-h-screen py-24 text-gray-800">
+    <div className="bg-[#060C14] min-h-screen flex flex-col text-gray-800">
+      {/* Add the animation styles */}
+      <style dangerouslySetInnerHTML={{ __html: svgAnimationStyles }} />
+      
       {/* Header Section */}
-      <section className="bg-[#060C14] text-black py-20 relative overflow-hidden">
-        {/* Background design elements */}
-        <div className="absolute top-0 right-0 w-2/3 h-full bg-gradient-to-l from-blue-500/5 to-transparent"></div>
-        <div className="absolute bottom-20 left-10 w-20 h-20 rounded-full bg-gradient-to-tr from-blue-500/10 to-purple-500/5 blur-2xl"></div>
+      <section className="bg-[#060C14] text-black py-24 md:py-36 relative overflow-hidden min-h-screen flex items-center">
+        {/* Background liminal gradients */}
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-blue-500/10 rounded-full filter blur-[120px] opacity-30"></div>
+          <div className="absolute bottom-1/4 left-1/3 w-80 h-80 bg-indigo-600/10 rounded-full filter blur-[100px] opacity-20"></div>
+          <div className="absolute top-1/2 left-1/4 w-64 h-64 bg-purple-500/10 rounded-full filter blur-[80px] opacity-30"></div>
+        </div>
         
         <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 items-center gap-12 relative">
             {/* Text Content */}
@@ -54,7 +99,7 @@ const About: React.FC = () => {
               </div>
             </motion.div>
 
-            {/* Illustration with animation */}
+            {/* Generated SVG Graphic */}
             <motion.div 
               initial={{ opacity: 0, scale: 0.9 }}
               whileInView={{ opacity: 1, scale: 1 }}
@@ -62,15 +107,155 @@ const About: React.FC = () => {
               viewport={{ once: true }}
               className="flex justify-center md:justify-end relative"
             >
-              <div className="relative">
-                <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-purple-500/20 rounded-lg blur-xl opacity-50 animate-pulse"></div>
-                <Image
-                  src="/network.png"
-                  alt="AI Network Visualization"
-                  width={500}
-                  height={600}
-                  className="rounded-lg shadow-xl object-contain relative z-10"
-                />
+              <div className="relative w-full max-w-md">
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 to-purple-500/10 rounded-full blur-3xl opacity-30 animate-pulse"></div>
+                <svg 
+                  viewBox="0 0 500 500" 
+                  className="w-full h-auto relative z-10 drop-shadow-[0_0_15px_rgba(59,130,246,0.5)]"
+                >
+                  {/* Abstract Neural Network SVG */}
+                  <g className="opacity-90">
+                    {/* Background elements */}
+                    <circle cx="250" cy="250" r="200" fill="none" stroke="rgba(59, 130, 246, 0.1)" strokeWidth="1" />
+                    <circle cx="250" cy="250" r="150" fill="none" stroke="rgba(99, 102, 241, 0.15)" strokeWidth="1" />
+                    <circle cx="250" cy="250" r="100" fill="none" stroke="rgba(139, 92, 246, 0.2)" strokeWidth="1" />
+                    
+                    {/* Network Lines */}
+                    <g className="network-lines">
+                      <path d="M150,150 Q250,50 350,150" fill="none" stroke="rgba(59, 130, 246, 0.6)" strokeWidth="1.5" />
+                      <path d="M100,250 Q250,200 400,250" fill="none" stroke="rgba(99, 102, 241, 0.6)" strokeWidth="1.5" />
+                      <path d="M150,350 Q250,450 350,350" fill="none" stroke="rgba(139, 92, 246, 0.6)" strokeWidth="1.5" />
+                      <path d="M250,100 Q300,250 250,400" fill="none" stroke="rgba(59, 130, 246, 0.6)" strokeWidth="1.5" />
+                      <path d="M150,200 Q200,250 150,300" fill="none" stroke="rgba(99, 102, 241, 0.6)" strokeWidth="1.5" />
+                      <path d="M350,200 Q300,250 350,300" fill="none" stroke="rgba(139, 92, 246, 0.6)" strokeWidth="1.5" />
+                    </g>
+                    
+                    {/* Network Nodes */}
+                    <g className="network-nodes">
+                      <circle cx="150" cy="150" r="8" fill="#3b82f6" className="animate-pulse" style={{ animationDuration: "3s" }} />
+                      <circle cx="350" cy="150" r="8" fill="#6366f1" className="animate-pulse" style={{ animationDuration: "4s" }} />
+                      <circle cx="100" cy="250" r="8" fill="#8b5cf6" className="animate-pulse" style={{ animationDuration: "5s" }} />
+                      <circle cx="400" cy="250" r="8" fill="#3b82f6" className="animate-pulse" style={{ animationDuration: "3.5s" }} />
+                      <circle cx="150" cy="350" r="8" fill="#6366f1" className="animate-pulse" style={{ animationDuration: "4.5s" }} />
+                      <circle cx="350" cy="350" r="8" fill="#8b5cf6" className="animate-pulse" style={{ animationDuration: "3.2s" }} />
+                      <circle cx="250" cy="100" r="8" fill="#3b82f6" className="animate-pulse" style={{ animationDuration: "4.2s" }} />
+                      <circle cx="250" cy="400" r="8" fill="#6366f1" className="animate-pulse" style={{ animationDuration: "3.8s" }} />
+                      <circle cx="150" cy="200" r="6" fill="#8b5cf6" className="animate-pulse" style={{ animationDuration: "4.7s" }} />
+                      <circle cx="150" cy="300" r="6" fill="#3b82f6" className="animate-pulse" style={{ animationDuration: "3.3s" }} />
+                      <circle cx="350" cy="200" r="6" fill="#6366f1" className="animate-pulse" style={{ animationDuration: "4.3s" }} />
+                      <circle cx="350" cy="300" r="6" fill="#8b5cf6" className="animate-pulse" style={{ animationDuration: "3.7s" }} />
+                      <circle cx="250" cy="250" r="10" fill="#3b82f6" className="animate-pulse" style={{ animationDuration: "3s" }} />
+                    </g>
+                    
+                    {/* Floating particles with orbit animation */}
+                    <g className="particles">
+                      {/* Orbit particles around main nodes */}
+                      <circle cx="0" cy="0" r="3" fill="rgba(59, 130, 246, 0.8)">
+                        <animateTransform
+                          attributeName="transform"
+                          type="rotate"
+                          from="0 150 150"
+                          to="360 150 150"
+                          dur="5s"
+                          repeatCount="indefinite"
+                        />
+                        <animate
+                          attributeName="cx"
+                          values="135;150;165;150;135"
+                          dur="5s"
+                          repeatCount="indefinite"
+                        />
+                        <animate
+                          attributeName="cy"
+                          values="150;135;150;165;150"
+                          dur="5s"
+                          repeatCount="indefinite"
+                        />
+                      </circle>
+                      
+                      <circle cx="0" cy="0" r="3" fill="rgba(99, 102, 241, 0.8)">
+                        <animateTransform
+                          attributeName="transform"
+                          type="rotate"
+                          from="0 350 150"
+                          to="360 350 150"
+                          dur="7s"
+                          repeatCount="indefinite"
+                        />
+                        <animate
+                          attributeName="cx"
+                          values="335;350;365;350;335"
+                          dur="7s"
+                          repeatCount="indefinite"
+                        />
+                        <animate
+                          attributeName="cy"
+                          values="150;135;150;165;150"
+                          dur="7s"
+                          repeatCount="indefinite"
+                        />
+                      </circle>
+                      
+                      <circle cx="0" cy="0" r="3" fill="rgba(139, 92, 246, 0.8)">
+                        <animateTransform
+                          attributeName="transform"
+                          type="rotate"
+                          from="0 250 250"
+                          to="360 250 250"
+                          dur="8s"
+                          repeatCount="indefinite"
+                        />
+                        <animate
+                          attributeName="cx"
+                          values="235;250;265;250;235"
+                          dur="4s"
+                          repeatCount="indefinite"
+                        />
+                        <animate
+                          attributeName="cy"
+                          values="250;235;250;265;250"
+                          dur="4s"
+                          repeatCount="indefinite"
+                        />
+                      </circle>
+                      
+                      {/* Regular pulse particles */}
+                      <circle cx="200" cy="180" r="3" fill="rgba(59, 130, 246, 0.8)" className="animate-pulse" style={{ animationDuration: "2s" }} />
+                      <circle cx="300" cy="180" r="3" fill="rgba(99, 102, 241, 0.8)" className="animate-pulse" style={{ animationDuration: "2.5s" }} />
+                      <circle cx="180" cy="250" r="3" fill="rgba(139, 92, 246, 0.8)" className="animate-pulse" style={{ animationDuration: "3s" }} />
+                      <circle cx="320" cy="250" r="3" fill="rgba(59, 130, 246, 0.8)" className="animate-pulse" style={{ animationDuration: "3.5s" }} />
+                      <circle cx="200" cy="320" r="3" fill="rgba(99, 102, 241, 0.8)" className="animate-pulse" style={{ animationDuration: "2.2s" }} />
+                      <circle cx="300" cy="320" r="3" fill="rgba(139, 92, 246, 0.8)" className="animate-pulse" style={{ animationDuration: "2.7s" }} />
+                    </g>
+                    
+                    {/* Data flow paths */}
+                    <g className="data-flow">
+                      <circle cx="0" cy="0" r="2" fill="rgba(59, 130, 246, 0.9)">
+                        <animateMotion
+                          path="M150,150 Q250,50 350,150"
+                          dur="3s"
+                          repeatCount="indefinite"
+                        />
+                      </circle>
+                      
+                      <circle cx="0" cy="0" r="2" fill="rgba(99, 102, 241, 0.9)">
+                        <animateMotion
+                          path="M100,250 Q250,200 400,250"
+                          dur="4s"
+                          repeatCount="indefinite"
+                        />
+                      </circle>
+                      
+                      <circle cx="0" cy="0" r="2" fill="rgba(139, 92, 246, 0.9)">
+                        <animateMotion
+                          path="M150,350 Q250,450 350,350"
+                          dur="5s"
+                          repeatCount="indefinite"
+                        />
+                      </circle>
+                    </g>
+                  </g>
+                </svg>
               </div>
             </motion.div>
         </div>
@@ -82,7 +267,7 @@ const About: React.FC = () => {
         whileInView={{ opacity: 1 }}
         transition={{ duration: 0.8 }}
         viewport={{ once: true }}
-        className="relative mt-28 mb-20"
+        className="relative py-24 md:py-36 min-h-screen flex items-center"
       >
         <div className="text-center mb-20">
           <h2 className="text-3xl md:text-5xl font-bold text-white mb-8 bg-gradient-to-r from-white via-blue-300 to-indigo-300 bg-clip-text text-transparent">

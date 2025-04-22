@@ -34,9 +34,9 @@ const Signup: React.FC = () => {
   };
 
   return (
-    <section className="bg-gradient-to-b from-[#060C14] via-[#081020] to-black text-white min-h-screen px-6 flex items-center justify-center relative overflow-hidden py-24">
-      {/* Background design elements */}
-      <div className="absolute top-0 left-0 w-full h-64 bg-gradient-to-b from-blue-500/5 to-transparent"></div>
+    <section className="bg-gradient-to-b from-[#060C14] via-[#081020] to-black text-white min-h-screen px-6 flex items-center justify-center relative overflow-hidden py-24 md:py-36">
+      {/* Background design elements - Enhanced gradient for continuity */}
+      <div className="absolute top-0 left-0 w-full h-96 bg-gradient-to-b from-blue-500/10 via-indigo-500/5 to-transparent"></div>
       <div className="absolute inset-0">
         <div className="absolute top-1/4 left-1/4 w-72 h-72 bg-blue-500/5 rounded-full filter blur-3xl animate-pulse" 
              style={{ animationDuration: "7s" }}></div>

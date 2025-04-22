@@ -22,9 +22,9 @@ const Doing: React.FC = () => {
   };
 
   return (
-    <section className="bg-[#060C14] py-24 px-6 relative overflow-hidden">
-      {/* Background elements */}
-      <div className="absolute top-0 left-0 w-full h-64 bg-gradient-to-b from-blue-500/5 to-transparent"></div>
+    <section className="bg-[#060C14] py-24 md:py-36 px-6 relative overflow-hidden">
+      {/* Background elements - Adjusted to create continuous gradient from About section */}
+      <div className="absolute top-0 left-0 w-full h-96 bg-gradient-to-b from-blue-500/10 via-indigo-500/5 to-transparent"></div>
       <div className="absolute -right-20 top-1/3 w-40 h-40 rounded-full bg-blue-500/5 blur-3xl"></div>
       <div className="absolute -left-20 bottom-1/3 w-40 h-40 rounded-full bg-purple-500/5 blur-3xl"></div>
       
@@ -43,7 +43,7 @@ const Doing: React.FC = () => {
 
         {/* Project 1 */}
         <motion.div 
-          className="grid md:grid-cols-2 gap-16 items-center"
+          className="grid md:grid-cols-2 gap-16 items-center min-h-[80vh] py-12"
           variants={item}
         >
           {/* Text */}
@@ -92,7 +92,7 @@ const Doing: React.FC = () => {
 
         {/* Project 2 */}
         <motion.div 
-          className="grid md:grid-cols-2 gap-16 items-center"
+          className="grid md:grid-cols-2 gap-16 items-center min-h-[80vh] py-12"
           variants={item}
         >
           {/* Image wrapped in BackgroundGradient */}
@@ -151,7 +151,7 @@ const Doing: React.FC = () => {
 
         {/* Coming Soon */}
         <motion.div 
-          className="text-center mt-24 pt-12 border-t border-white/10"
+          className="text-center mt-24 pt-12 pb-24 border-t border-white/10 min-h-[40vh] flex flex-col justify-center"
           variants={item}
         >
           <h3 className="text-2xl md:text-3xl font-bold text-white mb-4">More exciting projects coming soon</h3>
