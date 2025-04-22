@@ -1,55 +1,105 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 
-
 const Navbar: React.FC = () => {
     const [isOpen, setIsOpen] = useState(false);
+    const [scrolled, setScrolled] = useState(false);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            const offset = window.scrollY;
+            if (offset > 80) {
+                setScrolled(true);
+            } else {
+                setScrolled(false);
+            }
+        };
+
+        window.addEventListener('scroll', handleScroll);
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, []);
+
+    const closeMobileMenu = () => {
+        if (isOpen) setIsOpen(false);
+    };
 
     return (
         <nav 
-        style={{ backgroundColor: "#060C14" }}
-        className="text-white w-full top-0 left-0 z-50 sticky border-b border-white/20">
+            className={`text-white w-full top-0 left-0 z-50 sticky transition-all duration-300 ${
+                scrolled ? 'bg-[#060C14] shadow-md backdrop-blur-sm bg-opacity-90 border-b border-white/10' 
+                        : 'bg-[#060C14] border-b border-white/5'
+            }`}
+        >
             <div className="container mx-auto flex items-center justify-between px-6 py-4 h-16">
                 
                 {/* Logo */}
-                <Link href="#hero">
-                <Image
-                    src="/iconlogo.png"
-                    alt="AI Icon Logo"
-                    width={70}
-                    height={20}
-                />
+                <Link href="#hero" onClick={closeMobileMenu} className="flex items-center space-x-2">
+                    <Image
+                        src="/iconlogo.png"
+                        alt="AI³ Logo"
+                        width={40}
+                        height={40}
+                        className="w-auto h-8"
+                    />
+                    <span className="font-semibold text-lg hidden md:block">AI³</span>
                 </Link>
 
                 {/* Hamburger Icon (for mobile) */}
                 <button
-                    className="sm:hidden text-white"
+                    className="md:hidden text-white p-2 rounded-md hover:bg-white/10 transition-colors"
                     onClick={() => setIsOpen(!isOpen)}
+                    aria-label={isOpen ? "Close menu" : "Open menu"}
                 >
                     {isOpen ? (
-                        <span>&#x2715;</span> // Close Icon
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                        </svg>
                     ) : (
-                        <span>&#9776;</span> // Hamburger Icon
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
                     )}
                 </button>
 
                 {/* Navigation Links */}
-                <ul className={`${isOpen ? "block" : "hidden"} sm:flex sm:items-center sm:space-x-6 mt-4 sm:mt-0`}>
-
-                    <li>
-                        <a href="#about" className="hover:text-blue-400">About</a>
-                    </li>
- 
-                    <li>
-                        <a href="#doing" className="hover:text-blue-400">Projects</a>
-                    </li>
-                    <li>
-                        <a href="#signup" className="hover:text-blue-400">Join</a>
-                    </li>
-                </ul>
+                <div className={`${isOpen ? "flex absolute top-16 left-0 right-0 flex-col bg-[#060C14] border-b border-white/10 shadow-lg p-4" : "hidden"} md:relative md:flex md:top-0 md:bg-transparent md:shadow-none md:border-0 md:p-0`}>
+                    <ul className="md:flex md:items-center md:space-x-8 space-y-3 md:space-y-0">
+                        <li>
+                            <a 
+                                href="#about" 
+                                onClick={closeMobileMenu}
+                                className="block py-2 text-white hover:text-blue-400 transition-colors relative group"
+                            >
+                                About
+                                <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-blue-400 transition-all duration-300 group-hover:w-full"></span>
+                            </a>
+                        </li>
+                        <li>
+                            <a 
+                                href="#doing" 
+                                onClick={closeMobileMenu}
+                                className="block py-2 text-white hover:text-blue-400 transition-colors relative group"
+                            >
+                                Projects
+                                <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-blue-400 transition-all duration-300 group-hover:w-full"></span>
+                            </a>
+                        </li>
+                        <li>
+                            <a 
+                                href="#signup" 
+                                onClick={closeMobileMenu}
+                                className="block py-2 px-4 bg-blue-500 hover:bg-blue-600 transition-colors rounded-full text-white font-medium"
+                            >
+                                Join
+                            </a>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </nav>
     );

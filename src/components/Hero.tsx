@@ -278,17 +278,17 @@ const Hero: React.FC<HeroProps> = ({ heroBg = "#060C14" }) => (
     <NetworkVisualization />
 
     {/* Overlay gradient for better text contrast */}
-    <div className="absolute inset-0 bg-gradient-to-t from-[#060C14] via-[#060C1480] to-transparent opacity-60" />
+    <div className="absolute inset-0 bg-gradient-to-t from-[#060C14] via-[#060C1490] to-transparent opacity-70" />
 
     {/* Logo and tagline - centered in the screen */}
     <div className="absolute inset-0 flex flex-col justify-center items-center z-10">
       <div
-        className="max-w-2xl w-[90%] text-center animate-fadeIn"
+        className="max-w-3xl w-[90%] text-center animate-fadeIn"
       >
         <div className="relative w-full aspect-[4/1] mb-8">
           <Image
             src="/logo.svg"
-            alt="Logo"
+            alt="AI Cubed Logo"
             fill
             priority
             className="animate-glow"
@@ -297,6 +297,37 @@ const Hero: React.FC<HeroProps> = ({ heroBg = "#060C14" }) => (
               filter: "drop-shadow(0 4px 12px rgba(0, 0, 0, 0.5))",
             }}
           />
+        </div>
+        
+        <p className="text-white text-lg md:text-xl mt-2 mb-6 animate-slideUp">
+          Empowering Melbourne University with cutting-edge AI technologies
+        </p>
+        
+        <div className="flex justify-center gap-4 animate-slideUp">
+          <a href="#about" 
+             className="px-6 py-3 bg-white text-black rounded-full hover:bg-opacity-90 transition-all font-medium">
+            Learn More
+          </a>
+          <a href="#signup" 
+             className="px-6 py-3 border border-white text-white rounded-full hover:bg-white hover:text-black transition-all font-medium">
+            Join Our Community
+          </a>
+        </div>
+        
+        <div className="absolute bottom-12 left-1/2 transform -translate-x-1/2 animate-bounce">
+          <svg 
+            xmlns="http://www.w3.org/2000/svg" 
+            className="h-6 w-6 text-white" 
+            fill="none" 
+            viewBox="0 0 24 24" 
+            stroke="currentColor">
+            <path 
+              strokeLinecap="round" 
+              strokeLinejoin="round" 
+              strokeWidth={2} 
+              d="M19 14l-7 7m0 0l-7-7m7 7V3" 
+            />
+          </svg>
         </div>
       </div>
     </div>
@@ -340,6 +371,19 @@ const Hero: React.FC<HeroProps> = ({ heroBg = "#060C14" }) => (
 
       .animate-glow {
         animation: glow 5s ease-in-out infinite;
+      }
+      
+      @keyframes bounce {
+        0%, 100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-10px);
+        }
+      }
+      
+      .animate-bounce {
+        animation: bounce 2s infinite;
       }
     `}</style>
   </div>
