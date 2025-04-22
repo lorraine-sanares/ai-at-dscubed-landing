@@ -11,7 +11,7 @@ export default function Page() {
         <Hero />
       </section>
       <Navbar />
-      
+
       <section id="about">
         <About />
       </section>
@@ -28,7 +28,7 @@ export default function Page() {
       <footer className="bg-black text-white py-6 px-6 border-t border-white/10">
         <div className="max-w-7xl mx-auto flex items-center justify-center space-x-4">
           <img src="/iconlogo.png" alt="Logo" className="h-6 w-auto" />
-          <p className="text-zinc-400 text-sm">© {new Date().getFullYear()} University of Melbourne. All rights reserved.</p>
+          <p className="text-zinc-400 text-sm">© {new Date().getFullYear()} DSCubed. All rights reserved.</p>
         </div>
       </footer>
     </main>

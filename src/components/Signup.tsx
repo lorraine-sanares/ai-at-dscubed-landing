@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { TypewriterEffect } from "@/components/ui/typewriter-effect";
+import { TypewriterEffectSmooth } from "@/components/ui/typewriter-effect";
 import { supabase } from "@/lib/supabaseClient";
 import { motion } from "framer-motion";
 
@@ -9,8 +9,18 @@ const Signup: React.FC = () => {
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
 
+  const isValidUniMelbEmail = (email: string): boolean => {
+    return email.trim().toLowerCase().endsWith("@student.unimelb.edu.au");
+  };
+
   const handleSubmit = async () => {
     if (!email || !email.trim()) {
+      setStatus("error");
+      return;
+    }
+
+    // Check if the email has the correct university domain
+    if (!isValidUniMelbEmail(email)) {
       setStatus("error");
       return;
     }
@@ -38,52 +48,36 @@ const Signup: React.FC = () => {
       {/* Background design elements - Enhanced gradient for continuity */}
       <div className="absolute top-0 left-0 w-full h-96 bg-gradient-to-b from-blue-500/10 via-indigo-500/5 to-transparent"></div>
       <div className="absolute inset-0">
-        <div className="absolute top-1/4 left-1/4 w-72 h-72 bg-blue-500/5 rounded-full filter blur-3xl animate-pulse" 
-             style={{ animationDuration: "7s" }}></div>
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500/5 rounded-full filter blur-3xl animate-pulse" 
-             style={{ animationDelay: "1s", animationDuration: "9s" }}></div>
-        <div className="absolute top-1/3 right-1/5 w-40 h-40 bg-indigo-500/5 rounded-full filter blur-3xl animate-pulse" 
-             style={{ animationDelay: "2s", animationDuration: "8s" }}></div>
-             
+        <div className="absolute top-1/4 left-1/4 w-72 h-72 bg-blue-500/5 rounded-full filter blur-3xl animate-pulse"
+          style={{ animationDuration: "7s" }}></div>
+        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500/5 rounded-full filter blur-3xl animate-pulse"
+          style={{ animationDelay: "1s", animationDuration: "9s" }}></div>
+        <div className="absolute top-1/3 right-1/5 w-40 h-40 bg-indigo-500/5 rounded-full filter blur-3xl animate-pulse"
+          style={{ animationDelay: "2s", animationDuration: "8s" }}></div>
+
         {/* Network-like dotted background */}
         <div className="absolute inset-0 opacity-20 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.1)_1px,transparent_1px)] bg-[length:20px_20px]"></div>
       </div>
 
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
         className="max-w-4xl text-center w-full z-10 relative"
       >
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.2, duration: 0.8 }}
-          className="text-blue-300 text-lg mb-4 font-light tracking-wide"
-        >
-          Step into the future of intelligence and
-        </motion.p>
-
-        <TypewriterEffect
+        <TypewriterEffectSmooth
           words={[
-            { text: "Help", className: "text-white" },
-            { text: "shape", className: "text-white" },
-            { text: "the", className: "text-white" },
-            { text: "future", className: "text-white" },
-            { text: "of", className: "text-white" },
-            { text: "AI", className: "text-blue-500" },
+            { text: "Intelligence", className: "text-white" },
             { text: "at", className: "text-white" },
-            { text: "the", className: "text-white" },
-            { text: "University", className: "text-blue-500" },
-            { text: "of", className: "text-blue-500" },
-            { text: "Melbourne", className: "text-blue-500" },
+            { text: "your", className: "text-white" },
+            { text: "fingertips.", className: "text-blue-500" },
           ]}
-          className="mb-16"
+          className="mb-20"
           cursorClassName="bg-blue-500"
         />
 
         {/* Email Input + CTA */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1.2, duration: 0.8 }}
@@ -102,7 +96,7 @@ const Signup: React.FC = () => {
               </div>
               <input
                 type="email"
-                placeholder="jane.doe@student.unimelb.edu.au"
+                placeholder="your.name@student.unimelb.edu.au"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className="w-full px-5 py-4 pl-12 rounded-xl text-white placeholder-gray-400 outline-none border border-white/10 focus:border-blue-500/50 bg-white/5 transition-all"
@@ -142,7 +136,7 @@ const Signup: React.FC = () => {
               <svg className="w-6 h-6 text-green-400 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
               </svg>
-              <span>Thanks for signing up! We'll be in touch soon with exclusive AI resources.</span>
+              <span>Thanks for signing up! We'll be in touch soon.</span>
             </motion.div>
           )}
 
@@ -151,12 +145,16 @@ const Signup: React.FC = () => {
               initial={{ opacity: 0, height: 0, y: -10 }}
               animate={{ opacity: 1, height: "auto", y: 0 }}
               transition={{ duration: 0.3 }}
-              className="flex items-start text-red-400 mt-6 bg-red-400/10 rounded-xl p-4 border border-red-400/20"
+              className="flex items-start text-red-400 mt-6 bg-red-400/10 rounded-xl p-4 border border-red-400/20 text-left"
             >
               <svg className="w-6 h-6 text-red-400 mr-3 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
               </svg>
-              <span>Please enter a valid university email address and try again. If you continue to experience issues, contact us at <span className="underline">support@aicubed.org</span>.</span>
+              <div className="space-y-2">
+                <p>Please enter a valid University of Melbourne student email address ending with:</p>
+                <p className="font-mono bg-red-400/10 px-2 py-1 rounded inline-block">@student.unimelb.edu.au</p>
+                <p className="text-sm text-red-300/80 mt-1">Not a student? Contact us at <span className="underline">ai@dscubed.org.au</span></p>
+              </div>
             </motion.div>
           )}
         </motion.div>
@@ -167,7 +165,7 @@ const Signup: React.FC = () => {
           transition={{ delay: 1.5, duration: 0.8 }}
           className="mt-12 text-sm text-zinc-500"
         >
-          <p>By joining, you'll receive exclusive updates from AI³ at the University of Melbourne</p>
+          {/* <p>By joining, you'll receive exclusive updates from AI @ DSCubed</p> */}
         </motion.div>
       </motion.div>
     </section>
