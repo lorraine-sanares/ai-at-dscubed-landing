@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import { BackgroundGradient } from "@/components/ui/background-gradient";
 import { motion } from "framer-motion";
 
 interface ProjectCardProps {
@@ -39,23 +38,40 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
 
   return (
     <div className="rounded-2xl overflow-hidden bg-black/30 border border-white/10 hover:border-white/20 transition-all duration-300 h-full flex flex-col backdrop-blur-sm shadow-lg">
-      {/* Pattern/Graphic Section */}
-      <div className="w-full relative h-[120px] group overflow-hidden">
-        <BackgroundGradient className="absolute inset-0">
-          <div className="h-full w-full overflow-hidden flex items-center justify-center bg-black/40 relative">
-            {/* Static dot pattern based on project color */}
-            <div className={`absolute inset-0 ${
-              colorFrom === 'blue-500' 
-                ? 'bg-[radial-gradient(circle_at_20px_20px,rgba(59,130,246,0.15)_2px,transparent_2px)]' 
-                : 'bg-[radial-gradient(circle_at_20px_20px,rgba(168,85,247,0.15)_2px,transparent_2px)]'
-            } bg-[size:20px_20px]`}></div>
-            
-            {/* Center glow */}
-            <div className={`w-24 h-24 rounded-full ${gradientClass} opacity-20 blur-xl`}></div>
-          </div>
-        </BackgroundGradient>
+      {/* Gradient Header Section */}
+      <div className="w-full relative h-[80px] group overflow-hidden">
+        {colorFrom === 'blue-500' ? (
+          /* Blue gradient for llmgine */
+          <div className="absolute inset-0 bg-gradient-to-br from-blue-900/70 via-blue-800/40 to-blue-500/20"></div>
+        ) : (
+          /* Purple gradient for Darcy */
+          <div className="absolute inset-0 bg-gradient-to-br from-purple-900/70 via-purple-800/40 to-purple-500/20"></div>
+        )}
+
+        {/* Animated subtle pulse overlay */}
+        <div className="absolute inset-0 opacity-25">
+          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent animate-pulse"
+            style={{ animationDuration: '3s' }}></div>
+        </div>
+
+        {/* Decorative elements */}
+        {colorFrom === 'blue-500' ? (
+          <>
+            {/* Code-like accent for llmgine */}
+            <div className="absolute top-1/2 right-8 -translate-y-1/2 w-14 h-9 border border-blue-400/20 rounded bg-blue-500/5"></div>
+            <div className="absolute top-8/19 right-10 -translate-y-1/6 w-6 h-1 bg-blue-400/20 rounded-sm"></div>
+            <div className="absolute top-1/2 right-10 translate-y-1/6 w-8 h-1 bg-blue-400/20 rounded-sm"></div>
+          </>
+        ) : (
+          <>
+            {/* Circular accents for Darcy */}
+            <div className="absolute top-1/2 right-8 -translate-y-1/2 w-10 h-10 rounded-full border border-purple-400/20"></div>
+            <div className="absolute top-1/2 right-6 -translate-y-1/4 w-6 h-6 rounded-full border border-purple-400/20"></div>
+            <div className="absolute top-1/2 right-12 translate-y-0 w-4 h-4 rounded-full bg-purple-400/20"></div>
+          </>
+        )}
       </div>
-      
+
       {/* Line separator */}
       <div className={`h-[1px] w-full bg-white/10`}></div>
 
@@ -127,14 +143,14 @@ const Doing: React.FC = () => {
       <div className="absolute -left-20 bottom-1/3 w-40 h-40 rounded-full bg-purple-500/5 blur-3xl"></div>
 
       <motion.div
-        className="max-w-6xl mx-auto space-y-16"
+        className="max-w-6xl mx-auto space-y-24"
         variants={container}
         initial="hidden"
         whileInView="show"
         viewport={{ once: true }}
       >
         <motion.div variants={item}>
-          <h1 className="text-4xl md:text-5xl font-bold mb-12 text-center bg-gradient-to-r from-white via-blue-300 to-white bg-clip-text text-transparent">
+          <h1 className="text-4xl md:text-5xl font-bold mb-16 text-center bg-gradient-to-r from-white via-blue-300 to-white bg-clip-text text-transparent">
             Our Projects
           </h1>
         </motion.div>
@@ -156,7 +172,7 @@ const Doing: React.FC = () => {
             ]}
             description="A versatile modular framework designed to build production-ready large language model (LLM) applications with unmatched customizability."
             ctaText="View on GitHub"
-            ctaLink="https://github.com/aidscubed"
+            ctaLink="https://github.com/nathan-luo/llmgine"
           />
 
           {/* Project 2: Darcy */}
@@ -176,11 +192,11 @@ const Doing: React.FC = () => {
 
         {/* Coming Soon */}
         <motion.div
-          className="text-center mt-16 pt-12 border-t border-white/10 flex flex-col justify-center"
+          className="text-center mt-24 pt-16 border-t border-white/10 flex flex-col justify-center"
           variants={item}
         >
-          <h3 className="text-2xl md:text-3xl font-bold text-white mb-4">More exciting projects coming soon</h3>
-          <p className="text-zinc-400 max-w-2xl mx-auto mb-8">
+          <h3 className="text-2xl md:text-3xl font-bold text-white mb-6">More exciting projects coming soon</h3>
+          <p className="text-zinc-400 max-w-2xl mx-auto mb-10">
             Our team is constantly developing new AI innovations. Join our community to be the first to know about our latest projects.
           </p>
           <a href="#signup" className="inline-block">
