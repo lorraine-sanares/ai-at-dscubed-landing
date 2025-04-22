@@ -219,21 +219,18 @@ const About: React.FC = () => {
         whileInView={{ opacity: 1 }}
         transition={{ duration: 0.8 }}
         viewport={{ once: true }}
-        className="relative py-24 md:py-36 min-h-screen flex items-center"
+        className="relative py-24 md:py-36 min-h-screen flex flex-col items-center"
       >
-        <div className="text-center mb-20">
-          <h2 className="text-3xl md:text-5xl font-bold text-white mb-8 bg-gradient-to-r from-white via-blue-300 to-indigo-300 bg-clip-text text-transparent">
+        {/* Title at the top */}
+        <div className="text-center mb-16">
+          <h1 className="text-4xl md:text-6xl font-bold mb-6 text-white bg-gradient-to-r from-white via-blue-300 to-indigo-400 bg-clip-text text-transparent">
             What We Offer
-          </h2>
+          </h1>
           <div className="h-1 w-32 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-full mx-auto mb-8"></div>
           <p className="text-zinc-300 max-w-2xl mx-auto text-lg">
             Join us to access a comprehensive ecosystem of AI resources, community, and practical expertise
           </p>
         </div>
-
-        {/* 3D connector effect */}
-        <div className="absolute left-1/2 transform -translate-x-1/2 top-40 bottom-0 w-[2px] bg-gradient-to-b from-blue-500/50 via-indigo-500/30 to-transparent hidden md:block"></div>
-        <div className="absolute left-1/2 transform -translate-x-1/2 top-40 w-6 h-6 rounded-full bg-blue-500/20 blur-md hidden md:block"></div>
 
         {/* Glowing Info Cards */}
         <div className="max-w-6xl mx-auto px-6 grid md:grid-cols-2 lg:grid-cols-3 gap-8">
