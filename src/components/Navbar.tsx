@@ -41,12 +41,11 @@ const Navbar: React.FC = () => {
                 <Link href="#hero" onClick={closeMobileMenu} className="flex items-center space-x-3 group">
                     <Image
                         src="/iconlogo.png"
-                        alt="AI³ Logo"
+                        alt="Logo"
                         width={40}
                         height={40}
                         className="w-auto h-9 group-hover:scale-105 transition-transform"
                     />
-                    <span className="font-medium text-lg hidden md:block bg-gradient-to-r from-white to-blue-300 bg-clip-text text-transparent">AI³</span>
                 </Link>
 
                 {/* Hamburger Icon (for mobile) */}

@@ -15,8 +15,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "AI³ | AI Cubed | University of Melbourne",
-  description: "AI Cubed (AI³) - Empowering University of Melbourne students with cutting-edge AI technologies and resources",
+  title: "University of Melbourne",
+  description: "Empowering University of Melbourne students with cutting-edge technologies and resources",
   icons: {
     icon: '/iconlogo.png',
     apple: '/iconlogo.png',
