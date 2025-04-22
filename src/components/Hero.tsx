@@ -1,7 +1,8 @@
 "use client";
 
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 interface HeroProps {
   heroBg?: string;
@@ -10,6 +11,17 @@ interface HeroProps {
 // Network visualization component
 const NetworkVisualization = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  // Handle canvas visibility
+  useEffect(() => {
+    // Delay showing the canvas to prevent jarring transitions
+    const timer = setTimeout(() => {
+      setIsVisible(true);
+    }, 500);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -264,80 +276,89 @@ const NetworkVisualization = () => {
   return (
     <canvas
       ref={canvasRef}
-      className="absolute inset-0 w-full h-full"
+      className="absolute inset-0 w-full h-full transition-opacity duration-1000"
+      style={{ opacity: isVisible ? 0.9 : 0 }}
     />
   );
 };
 
-const Hero: React.FC<HeroProps> = ({ heroBg = "#060C14" }) => (
-  <div
-    className="relative w-full h-screen overflow-hidden"
-    style={{ backgroundColor: heroBg }}
-  >
-    {/* Dynamic network visualization */}
-    <NetworkVisualization />
+const Hero: React.FC<HeroProps> = ({ heroBg = "#060C14" }) => {
+  const [isLoaded, setIsLoaded] = useState(false);
 
-    {/* Overlay gradient for better text contrast */}
-    <div className="absolute inset-0 bg-gradient-to-t from-[#060C14] via-[#060C1490] to-transparent opacity-70" />
+  useEffect(() => {
+    // Wait for client-side hydration to complete
+    const timer = setTimeout(() => {
+      setIsLoaded(true);
+    }, 50);
 
-    {/* Logo and tagline - centered in the screen */}
-    <div className="absolute inset-0 flex flex-col justify-center items-center z-10">
-      <div
-        className="max-w-4xl w-[90%] text-center animate-fadeIn"
-      >
-        <div className="relative w-full aspect-[4/1] mb-10">
-          <Image
-            src="/logo.svg"
-            alt="AI Cubed Logo"
-            fill
-            priority
-            className="animate-glow"
-            style={{
-              objectFit: "contain",
-              filter: "drop-shadow(0 4px 12px rgba(0, 0, 0, 0.5))",
-            }}
-          />
-        </div>
-        
-        <h2 className="text-white text-2xl md:text-3xl font-light tracking-wide mb-3 animate-slideUp">
-          Intelligence at your fingertips
-        </h2>
-        
-        <p className="text-blue-200 text-lg md:text-xl mb-10 max-w-2xl mx-auto animate-slideUp opacity-80 font-light">
-          Empowering Melbourne University with cutting-edge AI technologies
-        </p>
-        
-        <div className="flex flex-wrap justify-center gap-6 animate-slideUp">
-          <a href="#about" 
-             className="px-8 py-3 bg-gradient-to-r from-blue-500 to-indigo-600 text-white rounded-full hover:shadow-lg hover:shadow-blue-500/30 transition-all font-medium">
-            Learn More
-          </a>
-          <a href="#signup" 
-             className="px-8 py-3 bg-transparent backdrop-blur-sm border border-white/30 text-white rounded-full hover:bg-white/10 hover:border-white/70 transition-all font-medium">
-            Join Our Community
-          </a>
-        </div>
-        
-        <div className="absolute bottom-14 left-1/2 transform -translate-x-1/2 animate-float">
-          <svg 
-            xmlns="http://www.w3.org/2000/svg" 
-            className="h-7 w-7 text-white/70 hover:text-white transition-colors" 
-            fill="none" 
-            viewBox="0 0 24 24" 
-            stroke="currentColor">
-            <path 
-              strokeLinecap="round" 
-              strokeLinejoin="round" 
-              strokeWidth={2} 
-              d="M19 14l-7 7m0 0l-7-7m7 7V3" 
+    return () => clearTimeout(timer);
+  }, []);
+
+  return (
+    <div
+      className="relative w-full h-screen overflow-hidden"
+      style={{ backgroundColor: heroBg }}
+    >
+      {/* Dynamic network visualization */}
+      <NetworkVisualization />
+
+      {/* Overlay gradient for better text contrast */}
+      <div className="absolute inset-0 bg-gradient-to-t from-[#060C14] via-[#060C1490] to-transparent opacity-70" />
+
+      {/* Logo and tagline - centered in the screen */}
+      <div className="absolute inset-0 flex flex-col justify-center items-center z-10">
+        <div
+          className="max-w-3xl w-[85%] text-center animate-fadeIn"
+        >
+          <div className={`relative w-[85%] mx-auto aspect-[4/1] mb-8 transition-opacity duration-700 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}>
+            <Image
+              src="/logo.svg"
+              alt="AI Cubed Logo"
+              fill
+              priority
+              className="animate-glow"
+              style={{
+                objectFit: "contain",
+                filter: "drop-shadow(0 4px 12px rgba(0, 0, 0, 0.5))",
+              }}
             />
-          </svg>
+          </div>
+
+          <p className={`text-white text-lg md:text-xl max-w-xl mx-auto mb-8 transition-opacity duration-700 delay-[300ms] ${isLoaded ? 'opacity-60' : 'opacity-0'}`}>
+            Empowering students at the University of Melbourne with cutting-edge AI technologies.
+          </p>
+
+          <div className={`flex justify-center gap-4 transition-opacity duration-700 delay-[600ms] ${isLoaded ? 'opacity-100' : 'opacity-0'}`}>
+            <a href="#about"
+              className="px-6 py-2 bg-gradient-to-r from-blue-500 to-indigo-600 text-white rounded-full hover:shadow-lg hover:shadow-blue-500/30 transition-all font-medium text-sm">
+              Learn More
+            </a>
+            <a href="#signup"
+              className="px-6 py-2 bg-transparent backdrop-blur-sm border border-white/30 text-white rounded-full hover:bg-white/10 hover:border-white/70 transition-all font-medium text-sm">
+              Join Our Community
+            </a>
+          </div>
+
+          <div className={`absolute bottom-14 left-1/2 transform -translate-x-1/2 transition-opacity duration-700 delay-[900ms] ${isLoaded ? 'opacity-100 animate-float' : 'opacity-0'}`}>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-7 w-7 text-white/70 hover:text-white transition-colors"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor">
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M19 14l-7 7m0 0l-7-7m7 7V3"
+              />
+            </svg>
+          </div>
         </div>
       </div>
-    </div>
 
-    {/* CSS animations */}
-    <style jsx global>{`
+      {/* CSS animations */}
+      <style jsx global>{`
       @keyframes fadeIn {
         from { opacity: 0; }
         to { opacity: 1; }
@@ -346,7 +367,7 @@ const Hero: React.FC<HeroProps> = ({ heroBg = "#060C14" }) => (
       @keyframes slideUp {
         from { 
           opacity: 0;
-          transform: translateY(20px);
+          transform: translateY(15px);
         }
         to { 
           opacity: 1;
@@ -365,32 +386,33 @@ const Hero: React.FC<HeroProps> = ({ heroBg = "#060C14" }) => (
 
       .animate-fadeIn {
         opacity: 0;
-        animation: fadeIn 1s ease-out forwards;
+        animation: fadeIn 1.2s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
       }
 
       .animate-slideUp {
         opacity: 0;
-        animation: slideUp 1s ease-out 0.5s forwards;
+        animation: slideUp 1.2s cubic-bezier(0.25, 0.1, 0.25, 1) 0.3s forwards;
       }
 
       .animate-glow {
-        animation: glow 5s ease-in-out infinite;
+        animation: glow 6s ease-in-out infinite;
       }
       
-      @keyframes bounce {
+      @keyframes float {
         0%, 100% {
           transform: translateY(0);
         }
         50% {
-          transform: translateY(-10px);
+          transform: translateY(-8px);
         }
       }
       
-      .animate-bounce {
-        animation: bounce 2s infinite;
+      .animate-float {
+        animation: float 3s ease-in-out infinite;
       }
     `}</style>
-  </div>
-);
+    </div>
+  );
+};
 
 export default Hero;
