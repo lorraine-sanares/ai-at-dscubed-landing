@@ -1,14 +1,11 @@
 "use client";
 
 import React from "react";
-import Image from "next/image";
 import { BackgroundGradient } from "@/components/ui/background-gradient";
 import { motion } from "framer-motion";
 
 interface ProjectCardProps {
   title: string;
-  imageSrc: string;
-  imageAlt: string;
   colorFrom: string;
   colorTo: string;
   features: string[];
@@ -18,62 +15,57 @@ interface ProjectCardProps {
   betaStatus?: boolean;
 }
 
-const ProjectCard: React.FC<ProjectCardProps> = ({ 
-  title, 
-  imageSrc, 
-  imageAlt, 
-  colorFrom, 
-  colorTo, 
-  features, 
-  description, 
-  ctaText, 
-  ctaLink, 
+const ProjectCard: React.FC<ProjectCardProps> = ({
+  title,
+  colorFrom,
+  colorTo,
+  features,
+  description,
+  ctaText,
+  ctaLink,
   betaStatus = false
 }) => {
   // Determine color classes based on props
-  const gradientClass = 
-    colorFrom === "blue-500" ? "bg-gradient-to-r from-blue-500 to-indigo-600" : 
-    "bg-gradient-to-r from-purple-500 to-pink-600";
-  
-  const textColorClass = 
+  const gradientClass =
+    colorFrom === "blue-500" ? "bg-gradient-to-r from-blue-500 to-indigo-600" :
+      "bg-gradient-to-r from-purple-500 to-pink-600";
+
+  const textColorClass =
     colorFrom === "blue-500" ? "text-blue-500" : "text-purple-500";
-  
-  const borderColorClass = 
-    colorFrom === "blue-500" ? "border-blue-500/40 hover:bg-blue-500/10" : 
-    "border-purple-500/40 hover:bg-purple-500/10";
+
+  const borderColorClass =
+    colorFrom === "blue-500" ? "border-blue-500/40 hover:bg-blue-500/10" :
+      "border-purple-500/40 hover:bg-purple-500/10";
 
   return (
     <div className="rounded-2xl overflow-hidden bg-black/30 border border-white/10 hover:border-white/20 transition-all duration-300 h-full flex flex-col backdrop-blur-sm shadow-lg">
-      {/* Image Section - smaller size with proper ratio */}
-      <div className="w-full relative h-[180px] group overflow-hidden">
-        <BackgroundGradient className="absolute inset-0 p-1 rounded-t-2xl">
-          <div className="h-full w-full overflow-hidden rounded-t-xl flex items-center justify-center bg-black/40">
-            <div className="relative w-[280px] h-[160px] flex items-center justify-center">
-              <Image
-                src={imageSrc}
-                alt={imageAlt}
-                width={240}
-                height={160}
-                className="transition-transform duration-500 group-hover:scale-105"
-                priority
-                style={{ 
-                  objectFit: 'contain',
-                  maxWidth: '100%',
-                  maxHeight: '100%'
-                }}
-              />
-            </div>
+      {/* Pattern/Graphic Section */}
+      <div className="w-full relative h-[120px] group overflow-hidden">
+        <BackgroundGradient className="absolute inset-0">
+          <div className="h-full w-full overflow-hidden flex items-center justify-center bg-black/40 relative">
+            {/* Static dot pattern based on project color */}
+            <div className={`absolute inset-0 ${
+              colorFrom === 'blue-500' 
+                ? 'bg-[radial-gradient(circle_at_20px_20px,rgba(59,130,246,0.15)_2px,transparent_2px)]' 
+                : 'bg-[radial-gradient(circle_at_20px_20px,rgba(168,85,247,0.15)_2px,transparent_2px)]'
+            } bg-[size:20px_20px]`}></div>
+            
+            {/* Center glow */}
+            <div className={`w-24 h-24 rounded-full ${gradientClass} opacity-20 blur-xl`}></div>
           </div>
         </BackgroundGradient>
       </div>
       
+      {/* Line separator */}
+      <div className={`h-[1px] w-full bg-white/10`}></div>
+
       {/* Content Section */}
       <div className="p-6 flex-grow flex flex-col">
         <div> {/* Top content */}
           <h3 className="text-2xl font-bold text-white mb-2">{title}</h3>
           <div className={`h-1 w-16 ${gradientClass} rounded-full mb-4`}></div>
           <p className="text-zinc-300 mb-4">{description}</p>
-          
+
           {/* Features */}
           <ul className="space-y-2 text-zinc-400">
             {features.map((feature, index) => (
@@ -86,7 +78,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
             ))}
           </ul>
         </div>
-        
+
         {/* CTA Button or Beta Status - Always at bottom */}
         <div className="mt-auto pt-6">
           {ctaText && ctaLink && !betaStatus && (
@@ -99,7 +91,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
               </button>
             </a>
           )}
-          
+
           {betaStatus && (
             <span className="inline-block px-3 py-1 bg-white/10 rounded-full text-sm text-zinc-300">
               Currently in Beta
@@ -133,8 +125,8 @@ const Doing: React.FC = () => {
       <div className="absolute top-0 left-0 w-full h-96 bg-gradient-to-b from-blue-500/10 via-indigo-500/5 to-transparent"></div>
       <div className="absolute -right-20 top-1/3 w-40 h-40 rounded-full bg-blue-500/5 blur-3xl"></div>
       <div className="absolute -left-20 bottom-1/3 w-40 h-40 rounded-full bg-purple-500/5 blur-3xl"></div>
-      
-      <motion.div 
+
+      <motion.div
         className="max-w-6xl mx-auto space-y-16"
         variants={container}
         initial="hidden"
@@ -148,15 +140,13 @@ const Doing: React.FC = () => {
         </motion.div>
 
         {/* Gallery Style Projects */}
-        <motion.div 
+        <motion.div
           className="grid md:grid-cols-2 gap-8 px-2 max-w-5xl mx-auto"
           variants={item}
         >
           {/* Project 1: llmgine */}
-          <ProjectCard 
+          <ProjectCard
             title="llmgine"
-            imageSrc="/dummycode.png"
-            imageAlt="llmgine framework example"
             colorFrom="blue-500"
             colorTo="indigo-600"
             features={[
@@ -170,10 +160,8 @@ const Doing: React.FC = () => {
           />
 
           {/* Project 2: Darcy */}
-          <ProjectCard 
+          <ProjectCard
             title="Darcy"
-            imageSrc="/darcy.png"
-            imageAlt="Darcy AI Assistant"
             colorFrom="purple-500"
             colorTo="pink-600"
             features={[
@@ -187,7 +175,7 @@ const Doing: React.FC = () => {
         </motion.div>
 
         {/* Coming Soon */}
-        <motion.div 
+        <motion.div
           className="text-center mt-16 pt-12 border-t border-white/10 flex flex-col justify-center"
           variants={item}
         >
