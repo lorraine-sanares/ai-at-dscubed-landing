@@ -10,35 +10,35 @@ interface HeroProps {
 // Network visualization component
 const NetworkVisualization = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  
+
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
-    
+
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
-    
+
     // Set canvas to full screen
     const handleResize = () => {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
     };
-    
+
     window.addEventListener('resize', handleResize);
     handleResize();
-    
+
     // Mouse position with default value (center of screen)
     let mouseX = canvas.width / 2;
     let mouseY = canvas.height / 2;
-    
+
     // Track mouse position
     const handleMouseMove = (e: MouseEvent) => {
       mouseX = e.clientX;
       mouseY = e.clientY;
     };
-    
+
     window.addEventListener('mousemove', handleMouseMove);
-    
+
     // Define node positions based on original SVG layout
     // These are predefined anchor positions for key nodes
     const keyNodePositions = [
@@ -55,7 +55,7 @@ const NetworkVisualization = () => {
       { x: 0.8, y: 0.38 },    // mid right
       { x: 0.68, y: 0.75 },   // bottom right
     ];
-    
+
     // Node class to represent each point in the network
     class Node {
       x: number;
@@ -66,7 +66,7 @@ const NetworkVisualization = () => {
       color: string;
       connections: Node[];
       isAnchor: boolean;
-      
+
       constructor(x: number, y: number, isAnchor = false) {
         this.originalX = x;
         this.originalY = y;
@@ -75,32 +75,32 @@ const NetworkVisualization = () => {
         this.radius = isAnchor ? Math.random() * 4 + 5 : Math.random() * 2 + 2;
         this.connections = [];
         this.isAnchor = isAnchor;
-        
+
         // Generate a color in blue/purple range
         const hue = Math.random() * 60 + 210; // 210-270 (blue to purple)
         const sat = Math.random() * 30 + 70; // 70-100%
         const light = Math.random() * 30 + 50; // 50-80%
         this.color = `hsl(${hue}, ${sat}%, ${light}%)`;
       }
-      
+
       update() {
         if (!canvas) return;
-        
+
         // Calculate distance from mouse
         const dx = mouseX - this.x;
         const dy = mouseY - this.y;
         const distance = Math.sqrt(dx * dx + dy * dy);
-        
+
         // Mouse gravity effect - inverse square law
         const forceDirection = {
           x: dx / distance,
           y: dy / distance
         };
-        
+
         // Apply attraction or repulsion based on distance
         let force = 0;
         const gravityRadius = 200;
-        
+
         if (distance < gravityRadius) {
           // Close to mouse: repel slightly (subtle push away)
           force = -0.5 * (1 - distance / gravityRadius);
@@ -108,29 +108,29 @@ const NetworkVisualization = () => {
           // Far from mouse: attract very slightly
           force = 0.05 * (distance - gravityRadius) / canvas.width;
         }
-        
+
         // Always try to return to original position with stronger force
         const returnForce = {
           x: (this.originalX - this.x) * 0.02,
           y: (this.originalY - this.y) * 0.02
         };
-        
+
         // Apply forces
         if (!this.isAnchor || distance < 100) {  // Only move non-anchor nodes or if mouse is very close
           this.x += forceDirection.x * force + returnForce.x;
           this.y += forceDirection.y * force + returnForce.y;
         }
       }
-      
+
       draw() {
         if (!ctx) return;
-        
+
         // Draw node
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
         ctx.fillStyle = this.color;
         ctx.fill();
-        
+
         // Draw glow
         ctx.shadowBlur = 10;
         ctx.shadowColor = this.color;
@@ -139,16 +139,16 @@ const NetworkVisualization = () => {
         ctx.fill();
         ctx.shadowBlur = 0;
       }
-      
+
       drawConnections() {
         if (!ctx) return;
-        
+
         // Draw connections to other nodes
         this.connections.forEach(other => {
           const gradient = ctx.createLinearGradient(this.x, this.y, other.x, other.y);
           gradient.addColorStop(0, this.color);
           gradient.addColorStop(1, other.color);
-          
+
           ctx.beginPath();
           ctx.moveTo(this.x, this.y);
           ctx.lineTo(other.x, other.y);
@@ -160,15 +160,15 @@ const NetworkVisualization = () => {
         });
       }
     }
-    
+
     // Create nodes - first the key anchor nodes
     const nodes: Node[] = [];
-    
+
     // Create anchor nodes
     keyNodePositions.forEach(pos => {
       nodes.push(new Node(pos.x * canvas.width, pos.y * canvas.height, true));
     });
-    
+
     // Create additional random nodes
     const additionalNodeCount = Math.max(30, Math.floor(window.innerWidth * window.innerHeight / 25000));
     for (let i = 0; i < additionalNodeCount; i++) {
@@ -180,7 +180,7 @@ const NetworkVisualization = () => {
         const distance = Math.random() * 100 + 30;
         x = randomAnchor.x + Math.cos(angle) * distance;
         y = randomAnchor.y + Math.sin(angle) * distance;
-        
+
         // Keep within bounds
         x = Math.max(0, Math.min(canvas.width, x));
         y = Math.max(0, Math.min(canvas.height, y));
@@ -189,10 +189,10 @@ const NetworkVisualization = () => {
         x = Math.random() * canvas.width;
         y = Math.random() * canvas.height;
       }
-      
+
       nodes.push(new Node(x, y, false));
     }
-    
+
     // Create connections between nodes
     const maxConnections = 5;
     nodes.forEach(node => {
@@ -203,37 +203,37 @@ const NetworkVisualization = () => {
         const distB = Math.hypot(b.x - node.x, b.y - node.y);
         return distA - distB;
       });
-      
+
       // Anchor nodes get more connections
-      const connectCount = node.isAnchor ? 
+      const connectCount = node.isAnchor ?
         Math.floor(Math.random() * 3) + 3 : // 3-5 connections for anchors
         Math.floor(Math.random() * 2) + 1;  // 1-2 connections for normal nodes
-      
+
       for (let i = 0; i < connectCount && i < others.length; i++) {
         if (Math.random() > 0.2) { // 80% chance to connect to this node
           node.connections.push(others[i]);
         }
       }
     });
-    
+
     // Animation loop
     const animate = () => {
       if (!ctx) return;
-      
+
       // Clear canvas
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      
+
       // Update and draw connections first (so they're behind nodes)
       nodes.forEach(node => {
         node.update();
         node.drawConnections();
       });
-      
+
       // Draw nodes on top
       nodes.forEach(node => {
         node.draw();
       });
-      
+
       // Dynamic connections based on proximity
       nodes.forEach(node => {
         nodes.forEach(other => {
@@ -248,23 +248,23 @@ const NetworkVisualization = () => {
           }
         });
       });
-      
+
       requestAnimationFrame(animate);
     };
-    
+
     animate();
-    
+
     // Cleanup
     return () => {
       window.removeEventListener('resize', handleResize);
       window.removeEventListener('mousemove', handleMouseMove);
     };
   }, []);
-  
+
   return (
-    <canvas 
-      ref={canvasRef} 
-      className="absolute inset-0 w-full h-full" 
+    <canvas
+      ref={canvasRef}
+      className="absolute inset-0 w-full h-full"
     />
   );
 };
@@ -298,14 +298,6 @@ const Hero: React.FC<HeroProps> = ({ heroBg = "#060C14" }) => (
             }}
           />
         </div>
-        <p
-          className="text-white text-2xl md:text-3xl font-semibold font-sans animate-slideUp"
-          style={{
-            textShadow: "0 2px 10px rgba(0, 0, 0, 0.7)"
-          }}
-        >
-          Intelligence at your fingertips
-        </p>
       </div>
     </div>
 
