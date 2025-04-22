@@ -24,25 +24,31 @@ const About: React.FC = () => {
               viewport={{ once: true }}
               className="relative z-10"
             >
-              <h1 className="text-4xl md:text-6xl font-bold mb-6 text-white bg-gradient-to-r from-white to-blue-400 bg-clip-text text-transparent">
+              <h1 className="text-4xl md:text-6xl font-bold mb-6 text-white bg-gradient-to-r from-white via-blue-300 to-indigo-400 bg-clip-text text-transparent">
                 Who We Are
               </h1>
-              <p className="text-md leading-relaxed mb-8 max-w-xl text-zinc-300">
+              <div className="h-1 w-24 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-full mb-8"></div>
+              <p className="text-lg leading-relaxed mb-10 max-w-xl text-zinc-300">
                 We are a visionary branch of DSCubed, specializing in the transformative
-                fields of Artificial Intelligence and Generative AI. Our mission is to
-                empower University of Melbourne students to harness cutting-edge AI
-                technologies, unlocking endless possibilities for innovation and discovery.
+                fields of <span className="text-blue-300">Artificial Intelligence</span> and <span className="text-indigo-300">Generative AI</span>. 
               </p>
-              <div className="flex flex-wrap gap-4">
+              <p className="text-lg leading-relaxed mb-10 max-w-xl text-zinc-300">
+                Our mission is to empower University of Melbourne students to harness cutting-edge 
+                AI technologies, unlocking endless possibilities for innovation and discovery.
+              </p>
+              <div className="flex flex-wrap gap-5">
                 <a href="#signup">
-                  <button className="px-5 py-3 rounded-full bg-gradient-to-r from-blue-500 to-indigo-600 text-white hover:shadow-lg hover:shadow-blue-500/20 transition-all">
+                  <button className="px-7 py-3 rounded-full bg-gradient-to-r from-blue-500 to-indigo-600 text-white hover:shadow-lg hover:shadow-blue-500/20 transition-all font-medium">
                     Join Our Mission
                   </button>
                 </a>
 
                 <a href="#doing">
-                  <button className="px-5 py-3 rounded-full bg-transparent backdrop-blur-sm border text-white border-white/20 hover:bg-white/10 hover:border-white/40 transition-all">
+                  <button className="px-7 py-3 rounded-full bg-transparent backdrop-blur-sm border text-white border-white/20 hover:bg-white/10 hover:border-white/40 transition-all group">
                     Explore Projects
+                    <svg className="inline-block ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                    </svg>
                   </button>
                 </a>
               </div>
@@ -76,14 +82,21 @@ const About: React.FC = () => {
         whileInView={{ opacity: 1 }}
         transition={{ duration: 0.8 }}
         viewport={{ once: true }}
-        className="relative mt-24 mb-20"
+        className="relative mt-28 mb-20"
       >
-        <h2 className="text-3xl md:text-5xl font-bold text-white text-center mb-16 bg-gradient-to-r from-white via-blue-300 to-white bg-clip-text text-transparent">
-          What We Offer
-        </h2>
+        <div className="text-center mb-20">
+          <h2 className="text-3xl md:text-5xl font-bold text-white mb-8 bg-gradient-to-r from-white via-blue-300 to-indigo-300 bg-clip-text text-transparent">
+            What We Offer
+          </h2>
+          <div className="h-1 w-32 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-full mx-auto mb-8"></div>
+          <p className="text-zinc-300 max-w-2xl mx-auto text-lg">
+            Join us to access a comprehensive ecosystem of AI resources, community, and practical expertise
+          </p>
+        </div>
         
-        {/* Curved line connector effect */}
-        <div className="absolute left-1/2 transform -translate-x-1/2 top-24 bottom-0 w-1 bg-gradient-to-b from-blue-500/50 to-transparent hidden md:block"></div>
+        {/* 3D connector effect */}
+        <div className="absolute left-1/2 transform -translate-x-1/2 top-40 bottom-0 w-[2px] bg-gradient-to-b from-blue-500/50 via-indigo-500/30 to-transparent hidden md:block"></div>
+        <div className="absolute left-1/2 transform -translate-x-1/2 top-40 w-6 h-6 rounded-full bg-blue-500/20 blur-md hidden md:block"></div>
 
         {/* Glowing Info Cards */}
         <div className="max-w-6xl mx-auto px-6 grid md:grid-cols-2 lg:grid-cols-3 gap-8">

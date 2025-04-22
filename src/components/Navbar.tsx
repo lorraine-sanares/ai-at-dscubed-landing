@@ -30,28 +30,28 @@ const Navbar: React.FC = () => {
 
     return (
         <nav 
-            className={`text-white w-full top-0 left-0 z-50 sticky transition-all duration-300 ${
-                scrolled ? 'bg-[#060C14] shadow-md backdrop-blur-sm bg-opacity-90 border-b border-white/10' 
-                        : 'bg-[#060C14] border-b border-white/5'
+            className={`text-white w-full top-0 left-0 z-50 sticky transition-all duration-500 ${
+                scrolled ? 'bg-[#060C14]/95 shadow-lg backdrop-blur-md border-b border-white/10' 
+                        : 'bg-transparent'
             }`}
         >
-            <div className="container mx-auto flex items-center justify-between px-6 py-4 h-16">
+            <div className="max-w-7xl mx-auto flex items-center justify-between px-6 py-4 h-16">
                 
                 {/* Logo */}
-                <Link href="#hero" onClick={closeMobileMenu} className="flex items-center space-x-2">
+                <Link href="#hero" onClick={closeMobileMenu} className="flex items-center space-x-3 group">
                     <Image
                         src="/iconlogo.png"
                         alt="AI³ Logo"
                         width={40}
                         height={40}
-                        className="w-auto h-8"
+                        className="w-auto h-9 group-hover:scale-105 transition-transform"
                     />
-                    <span className="font-semibold text-lg hidden md:block">AI³</span>
+                    <span className="font-medium text-lg hidden md:block bg-gradient-to-r from-white to-blue-300 bg-clip-text text-transparent">AI³</span>
                 </Link>
 
                 {/* Hamburger Icon (for mobile) */}
                 <button
-                    className="md:hidden text-white p-2 rounded-md hover:bg-white/10 transition-colors"
+                    className="md:hidden text-white p-2 rounded-md hover:bg-white/10 transition-all"
                     onClick={() => setIsOpen(!isOpen)}
                     aria-label={isOpen ? "Close menu" : "Open menu"}
                 >
@@ -67,35 +67,35 @@ const Navbar: React.FC = () => {
                 </button>
 
                 {/* Navigation Links */}
-                <div className={`${isOpen ? "flex absolute top-16 left-0 right-0 flex-col bg-[#060C14] border-b border-white/10 shadow-lg p-4" : "hidden"} md:relative md:flex md:top-0 md:bg-transparent md:shadow-none md:border-0 md:p-0`}>
-                    <ul className="md:flex md:items-center md:space-x-8 space-y-3 md:space-y-0">
+                <div className={`${isOpen ? "flex absolute top-16 left-0 right-0 flex-col bg-[#060C14]/95 backdrop-blur-md border-b border-white/10 shadow-lg p-6" : "hidden"} md:relative md:flex md:top-0 md:bg-transparent md:shadow-none md:border-0 md:p-0`}>
+                    <ul className="md:flex md:items-center md:space-x-10 space-y-4 md:space-y-0">
                         <li>
                             <a 
                                 href="#about" 
                                 onClick={closeMobileMenu}
-                                className="block py-2 text-white hover:text-blue-400 transition-colors relative group"
+                                className="block py-2 text-zinc-200 hover:text-white transition-all relative group"
                             >
                                 About
-                                <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-blue-400 transition-all duration-300 group-hover:w-full"></span>
+                                <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-gradient-to-r from-blue-400 to-indigo-500 transition-all duration-300 group-hover:w-full opacity-0 group-hover:opacity-100"></span>
                             </a>
                         </li>
                         <li>
                             <a 
                                 href="#doing" 
                                 onClick={closeMobileMenu}
-                                className="block py-2 text-white hover:text-blue-400 transition-colors relative group"
+                                className="block py-2 text-zinc-200 hover:text-white transition-all relative group"
                             >
                                 Projects
-                                <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-blue-400 transition-all duration-300 group-hover:w-full"></span>
+                                <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-gradient-to-r from-blue-400 to-indigo-500 transition-all duration-300 group-hover:w-full opacity-0 group-hover:opacity-100"></span>
                             </a>
                         </li>
                         <li>
                             <a 
                                 href="#signup" 
                                 onClick={closeMobileMenu}
-                                className="block py-2 px-4 bg-blue-500 hover:bg-blue-600 transition-colors rounded-full text-white font-medium"
+                                className="block py-2 px-6 bg-gradient-to-r from-blue-500 to-indigo-600 hover:shadow-lg hover:shadow-blue-500/20 transition-all rounded-full text-white font-medium"
                             >
-                                Join
+                                Join Us
                             </a>
                         </li>
                     </ul>

@@ -283,9 +283,9 @@ const Hero: React.FC<HeroProps> = ({ heroBg = "#060C14" }) => (
     {/* Logo and tagline - centered in the screen */}
     <div className="absolute inset-0 flex flex-col justify-center items-center z-10">
       <div
-        className="max-w-3xl w-[90%] text-center animate-fadeIn"
+        className="max-w-4xl w-[90%] text-center animate-fadeIn"
       >
-        <div className="relative w-full aspect-[4/1] mb-8">
+        <div className="relative w-full aspect-[4/1] mb-10">
           <Image
             src="/logo.svg"
             alt="AI Cubed Logo"
@@ -299,25 +299,29 @@ const Hero: React.FC<HeroProps> = ({ heroBg = "#060C14" }) => (
           />
         </div>
         
-        <p className="text-white text-lg md:text-xl mt-2 mb-6 animate-slideUp">
+        <h2 className="text-white text-2xl md:text-3xl font-light tracking-wide mb-3 animate-slideUp">
+          Intelligence at your fingertips
+        </h2>
+        
+        <p className="text-blue-200 text-lg md:text-xl mb-10 max-w-2xl mx-auto animate-slideUp opacity-80 font-light">
           Empowering Melbourne University with cutting-edge AI technologies
         </p>
         
-        <div className="flex justify-center gap-4 animate-slideUp">
+        <div className="flex flex-wrap justify-center gap-6 animate-slideUp">
           <a href="#about" 
-             className="px-6 py-3 bg-white text-black rounded-full hover:bg-opacity-90 transition-all font-medium">
+             className="px-8 py-3 bg-gradient-to-r from-blue-500 to-indigo-600 text-white rounded-full hover:shadow-lg hover:shadow-blue-500/30 transition-all font-medium">
             Learn More
           </a>
           <a href="#signup" 
-             className="px-6 py-3 border border-white text-white rounded-full hover:bg-white hover:text-black transition-all font-medium">
+             className="px-8 py-3 bg-transparent backdrop-blur-sm border border-white/30 text-white rounded-full hover:bg-white/10 hover:border-white/70 transition-all font-medium">
             Join Our Community
           </a>
         </div>
         
-        <div className="absolute bottom-12 left-1/2 transform -translate-x-1/2 animate-bounce">
+        <div className="absolute bottom-14 left-1/2 transform -translate-x-1/2 animate-float">
           <svg 
             xmlns="http://www.w3.org/2000/svg" 
-            className="h-6 w-6 text-white" 
+            className="h-7 w-7 text-white/70 hover:text-white transition-colors" 
             fill="none" 
             viewBox="0 0 24 24" 
             stroke="currentColor">
