@@ -15,8 +15,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "University of Melbourne",
-  description: "Empowering University of Melbourne students with cutting-edge technologies and resources",
+  title: "AI @ DSCubed",
+  description: "Intelligence at your fingertips",
   icons: {
     icon: '/iconlogo.png',
     apple: '/iconlogo.png',
@@ -31,7 +31,8 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth">
       <head>
-        <style dangerouslySetInnerHTML={{ __html: `
+        <style dangerouslySetInnerHTML={{
+          __html: `
           .hidden-until-load {
             opacity: 0;
           }
@@ -43,7 +44,8 @@ export default function RootLayout({
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         {children}
-        <script dangerouslySetInnerHTML={{ __html: `
+        <script dangerouslySetInnerHTML={{
+          __html: `
           // Use requestAnimationFrame to run after paint
           window.addEventListener('load', function() {
             requestAnimationFrame(function() {

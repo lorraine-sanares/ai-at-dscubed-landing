@@ -1,13 +1,104 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { TypewriterEffectSmooth } from "@/components/ui/typewriter-effect";
 import { supabase } from "@/lib/supabaseClient";
-import { motion } from "framer-motion";
+import { motion, useInView, useAnimation } from "framer-motion";
+
+// Define types for the ControlledTypewriter component
+interface TypewriterWord {
+  text: string;
+  className?: string;
+}
+
+interface ControlledTypewriterProps {
+  words: TypewriterWord[];
+  cursorClassName?: string;
+  isVisible: boolean;
+}
+
+// Controlled version of TypewriterEffect that only animates when triggered
+const ControlledTypewriter: React.FC<ControlledTypewriterProps> = ({ words, cursorClassName, isVisible }) => {
+  return (
+    <div className="flex space-x-1 my-6 flex justify-center">
+      <motion.div
+        className="overflow-hidden pb-2"
+        initial={{ width: "0%" }}
+        animate={{
+          width: isVisible ? "fit-content" : "0%"
+        }}
+        transition={{
+          duration: 1.8,
+          ease: "easeInOut",
+          delay: 0.4,
+        }}
+      >
+        <div
+          className="text-base sm:text-xl md:text-3xl lg:text-5xl xl:text-6xl font-bold"
+          style={{ whiteSpace: "nowrap" }}
+        >
+          {words.map((word: TypewriterWord, idx: number) => (
+            <div key={`word-${idx}`} className="inline-block">
+              {word.text.split('').map((char: string, index: number) => (
+                <span
+                  key={`char-${index}`}
+                  className={`dark:text-white text-white ${word.className || ''}`}
+                >
+                  {char}
+                </span>
+              ))}
+              &nbsp;
+            </div>
+          ))}
+        </div>
+      </motion.div>
+      <motion.span
+        initial={{ opacity: 0 }}
+        animate={{
+          opacity: isVisible ? 1 : 0
+        }}
+        transition={{
+          duration: 1.0,
+          repeat: isVisible ? Infinity : 0,
+          repeatType: "reverse",
+          ease: "easeInOut"
+        }}
+        className={`block rounded-sm w-[5px] h-6 sm:h-8 md:h-10 xl:h-14 ${cursorClassName || 'bg-blue-500'}`}
+      ></motion.span>
+    </div>
+  );
+};
 
 const Signup: React.FC = () => {
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [typewriterVisible, setTypewriterVisible] = useState(false);
+
+  // Refs and animation controls
+  const sectionRef = useRef<HTMLElement>(null);
+  const isInView = useInView(sectionRef, { once: true, amount: 0.3 });
+  const mainControls = useAnimation();
+  const typewriterControls = useAnimation();
+  const formControls = useAnimation();
+  const footerControls = useAnimation();
+
+  // Trigger animations when section comes into view
+  useEffect(() => {
+    if (isInView) {
+      // Start the main container animation immediately
+      mainControls.start({ opacity: 1, y: 0 });
+
+      // Form fades in immediately with minimal delay
+      formControls.start({ opacity: 1 });
+      footerControls.start({ opacity: 1 });
+
+      // Only delay the typewriter effect
+      setTimeout(() => {
+        typewriterControls.start({ opacity: 1, y: 0 });
+        setTypewriterVisible(true);
+      }, 300);
+    }
+  }, [isInView, mainControls, typewriterControls, formControls, footerControls]);
 
   const isValidUniMelbEmail = (email: string): boolean => {
     return email.trim().toLowerCase().endsWith("@student.unimelb.edu.au");
@@ -44,15 +135,18 @@ const Signup: React.FC = () => {
   };
 
   return (
-    <section className="bg-gradient-to-b from-[#060C14] via-[#081020] to-black text-white min-h-screen px-6 flex items-center justify-center relative overflow-hidden py-24 md:py-36">
+    <section
+      ref={sectionRef}
+      className="bg-gradient-to-b from-[#060C14] via-[#081020] to-black text-white min-h-screen px-6 flex items-center justify-center relative overflow-hidden py-24 md:py-36"
+    >
       {/* Background design elements - Enhanced gradient for continuity */}
       <div className="absolute top-0 left-0 w-full h-96 bg-gradient-to-b from-blue-500/10 via-indigo-500/5 to-transparent"></div>
       <div className="absolute inset-0">
-        <div className="absolute top-1/4 left-1/4 w-72 h-72 bg-blue-500/5 rounded-full filter blur-3xl animate-pulse"
+        <div className={`absolute top-1/4 left-1/4 w-72 h-72 bg-blue-500/5 rounded-full filter blur-3xl ${isInView ? 'animate-pulse' : ''}`}
           style={{ animationDuration: "7s" }}></div>
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500/5 rounded-full filter blur-3xl animate-pulse"
+        <div className={`absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500/5 rounded-full filter blur-3xl ${isInView ? 'animate-pulse' : ''}`}
           style={{ animationDelay: "1s", animationDuration: "9s" }}></div>
-        <div className="absolute top-1/3 right-1/5 w-40 h-40 bg-indigo-500/5 rounded-full filter blur-3xl animate-pulse"
+        <div className={`absolute top-1/3 right-1/5 w-40 h-40 bg-indigo-500/5 rounded-full filter blur-3xl ${isInView ? 'animate-pulse' : ''}`}
           style={{ animationDelay: "2s", animationDuration: "8s" }}></div>
 
         {/* Network-like dotted background */}
@@ -61,26 +155,32 @@ const Signup: React.FC = () => {
 
       <motion.div
         initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
+        animate={mainControls}
         transition={{ duration: 0.8 }}
         className="max-w-4xl text-center w-full z-10 relative"
       >
-        <TypewriterEffectSmooth
-          words={[
-            { text: "Intelligence", className: "text-white" },
-            { text: "at", className: "text-white" },
-            { text: "your", className: "text-white" },
-            { text: "fingertips.", className: "text-blue-500" },
-          ]}
-          className="mb-20"
-          cursorClassName="bg-blue-500"
-        />
-
-        {/* Email Input + CTA */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.2, duration: 0.8 }}
+          animate={typewriterControls}
+          className="mb-20"
+        >
+          <ControlledTypewriter
+            words={[
+              { text: "Intelligence", className: "text-white" },
+              { text: "at", className: "text-white" },
+              { text: "your", className: "text-white" },
+              { text: "fingertips.", className: "text-blue-500" },
+            ]}
+            cursorClassName="bg-blue-500"
+            isVisible={typewriterVisible}
+          />
+        </motion.div>
+
+        {/* Email Input + CTA - Simplified animation */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={formControls}
+          transition={{ duration: 0.5 }}
           className="mx-auto max-w-md w-full p-8 rounded-2xl bg-white/5 backdrop-blur-md border border-white/10 shadow-xl"
         >
           <h3 className="text-2xl font-semibold mb-4 bg-gradient-to-r from-white to-blue-300 bg-clip-text text-transparent">Join our community</h3>
@@ -117,7 +217,7 @@ const Signup: React.FC = () => {
                 </>
               ) : (
                 <>
-                  <span>Join Waitlist</span>
+                  <span>Join Now</span>
                   <svg className="ml-2 -mr-1 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
                   </svg>
@@ -161,8 +261,8 @@ const Signup: React.FC = () => {
 
         <motion.div
           initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.5, duration: 0.8 }}
+          animate={footerControls}
+          transition={{ duration: 0.5 }}
           className="mt-12 text-sm text-zinc-500"
         >
           {/* <p>By joining, you'll receive exclusive updates from AI @ DSCubed</p> */}

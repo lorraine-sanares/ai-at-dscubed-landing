@@ -29,22 +29,22 @@ const Navbar: React.FC = () => {
     };
 
     return (
-        <nav 
-            className={`text-white w-full top-0 left-0 z-50 sticky transition-all duration-500 ${
-                scrolled ? 'bg-[#060C14]/95 shadow-lg backdrop-blur-md border-b border-white/10' 
-                        : 'bg-transparent'
-            }`}
+        <nav
+            className={`text-white w-full top-0 left-0 z-50 sticky transition-all duration-500 ${scrolled ? 'bg-[#060C14]/95 shadow-lg backdrop-blur-md border-b border-white/10'
+                : 'bg-transparent'
+                }`}
         >
             <div className="max-w-7xl mx-auto flex items-center justify-between px-6 py-4 h-16">
-                
                 {/* Logo */}
                 <Link href="#hero" onClick={closeMobileMenu} className="flex items-center space-x-3 group">
                     <Image
                         src="/iconlogo.png"
                         alt="Logo"
-                        width={40}
-                        height={40}
+                        width={1440}
+                        height={1440}
                         className="w-auto h-9 group-hover:scale-105 transition-transform"
+                        quality={100}
+                        priority
                     />
                 </Link>
 
@@ -69,8 +69,8 @@ const Navbar: React.FC = () => {
                 <div className={`${isOpen ? "flex absolute top-16 left-0 right-0 flex-col bg-[#060C14]/95 backdrop-blur-md border-b border-white/10 shadow-lg p-6" : "hidden"} md:relative md:flex md:top-0 md:bg-transparent md:shadow-none md:border-0 md:p-0`}>
                     <ul className="md:flex md:items-center md:space-x-10 space-y-4 md:space-y-0">
                         <li>
-                            <a 
-                                href="#about" 
+                            <a
+                                href="#about"
                                 onClick={closeMobileMenu}
                                 className="block py-2 text-zinc-200 hover:text-white transition-all relative group"
                             >
@@ -79,8 +79,8 @@ const Navbar: React.FC = () => {
                             </a>
                         </li>
                         <li>
-                            <a 
-                                href="#doing" 
+                            <a
+                                href="#doing"
                                 onClick={closeMobileMenu}
                                 className="block py-2 text-zinc-200 hover:text-white transition-all relative group"
                             >
@@ -89,8 +89,8 @@ const Navbar: React.FC = () => {
                             </a>
                         </li>
                         <li>
-                            <a 
-                                href="#signup" 
+                            <a
+                                href="#signup"
                                 onClick={closeMobileMenu}
                                 className="block py-2 px-6 bg-gradient-to-r from-blue-500 to-indigo-600 hover:shadow-lg hover:shadow-blue-500/20 transition-all rounded-full text-white font-medium"
                             >
