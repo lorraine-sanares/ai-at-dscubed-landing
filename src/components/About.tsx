@@ -68,12 +68,12 @@ const About: React.FC = () => {
             </h1>
             <div className="h-1 w-24 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-full mb-8"></div>
             <p className="text-lg leading-relaxed mb-10 max-w-xl text-zinc-300">
-              We are a visionary branch of DSCubed, specializing in the transformative
+              We are a newly established branch of DSCubed, specializing in the
               fields of <span className="text-blue-300">Artificial Intelligence</span> and <span className="text-indigo-300">Generative AI</span>.
             </p>
             <p className="text-lg leading-relaxed mb-10 max-w-xl text-zinc-300">
-              Our mission is to empower University of Melbourne students to harness cutting-edge
-              AI technologies, unlocking endless possibilities for innovation and discovery.
+              Our mission is to serve as the central hub for all AI initiatives at the University of Melbourne, 
+              providing a platform for students to learn, collaborate, and innovate in the field of AI.
             </p>
             <div className="flex flex-wrap gap-5">
               <a href="#signup">
@@ -229,21 +229,21 @@ const About: React.FC = () => {
           <GlowingCardAnimated
             emoji="🤝"
             title="Supportive AI Community"
-            description="Join a network of passionate learners, creators, and collaborators pushing boundaries together."
+            description="Join a network of passionate learners, creators, and collaborators to explore the field of AI together."
             delay={0.2}
           />
 
           <GlowingCardAnimated
             emoji="🛠️"
             title="Advanced Tools & Techniques"
-            description="Level up with APIs, fine-tuning workflows, and technical tutorials made for devs and builders."
+            description="Level up with APIs, fine-tuning workflows, and technical tutorials catered to devs and builders."
             delay={0.3}
           />
 
           <GlowingCardAnimated
             emoji="✨"
             title="No-Code AI Solutions"
-            description="We make AI accessible for everyone — no programming required to unlock your creative power."
+            description="We make AI accessible for everyone - no programming required to unlock your creative power."
             delay={0.4}
           />
 
@@ -257,7 +257,7 @@ const About: React.FC = () => {
           <GlowingCardAnimated
             emoji="🚀"
             title="AI Industry Connections"
-            description="Connect with industry partners and gain real-world experience through our professional network."
+            description="Connect with industry leaders and gain real-world experience through our professional network."
             delay={0.6}
           />
         </div>

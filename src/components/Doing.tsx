@@ -170,7 +170,7 @@ const Doing: React.FC = () => {
               "Extensible plugin architecture",
               "Enterprise-grade reliability and performance"
             ]}
-            description="A versatile modular framework designed to build production-ready large language model (LLM) applications with unmatched customizability."
+            description="A versatile modular framework designed to build production-ready large language model (LLM) applications focused on customisability."
             ctaText="View on GitHub"
             ctaLink="https://github.com/nathan-luo/llmgine"
           />
